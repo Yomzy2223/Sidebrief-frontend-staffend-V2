@@ -1,7 +1,7 @@
 import React from "react";
 import { NotificationCard } from "@/components/features/notifications";
-import Settings from "@/stories/assets/Icons/Settings.svg";
-import Logo from "@/stories/assets/Logo.png";
+import Settings from "@/assets/Icons/Settings.svg";
+import Logo from "@/assets/Logo.png";
 import { UserNav } from "@/components/features/nav/user-nav";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import Notification from "@/stories/assets/Icons/Notification.svg";
+import Notification from "@/assets/icons/Notification.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import {

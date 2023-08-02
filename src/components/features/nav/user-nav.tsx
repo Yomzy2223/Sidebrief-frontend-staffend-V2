@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Profile from "@/stories/assets/Icons/Profile.svg";
+import Profile from "@/assets/Icons/Profile.svg";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
