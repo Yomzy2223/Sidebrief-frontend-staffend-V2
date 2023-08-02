@@ -1,0 +1,33 @@
+[
+    {
+        "id": "1",
+        "title": "Your monthly payment is due.",
+        "body": "Your monthly payment is due on the 24th of this month"
+    },
+    {
+        "id": "2",
+        "title": "Access Request",
+        "body": "Ola@gtbank.com request for access to the dashboard"
+    } ,
+    {
+        "id": "3",
+        "title": "Your monthly payment is due.",
+        "body": "Your monthly payment is due on the 24th of this month"
+    },  
+    {
+        "id": "4",
+        "title": "Your monthly payment is due.",
+        "body": "Your monthly payment is due on the 24th of this month"
+    },  
+    {
+        "id": "5",
+        "title": "Access Request",
+        "body": "Ola@gtbank.com request for access to the dashboard"
+    },
+    {
+        "id": "6",
+        "title": "Your monthly payment is due.",
+        "body": "Your monthly payment is due on the 24th of this month"
+    }
+
+]
