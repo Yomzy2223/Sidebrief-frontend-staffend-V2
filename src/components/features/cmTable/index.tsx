@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   Table,
@@ -15,10 +16,14 @@ interface TableProps {
   body: (string | number)[][];
   rowCursor?: boolean;
   onRowClick?: (cellData?: (string | number)[], rowIndex?: number) => void;
-  onCellClick?: (cellData?: string | number, rowIndex?: number, columnIndex?: number) => void;
+  onCellClick?: (
+    cellData?: string | number,
+    rowIndex?: number,
+    columnIndex?: number
+  ) => void;
 }
 
-export const DiligenceTable = ({
+const CMTable = ({
   header,
   body,
   rowCursor,
@@ -34,10 +39,14 @@ export const DiligenceTable = ({
     if (onCellClick) onCellClick(cellData, rowIndex, columnIndex);
   };
 
-  const handleRowClick = (rowData?: (string | number)[], rowIndex?: number): void => {
+  const handleRowClick = (
+    rowData?: (string | number)[],
+    rowIndex?: number
+  ): void => {
     // Call the provided onRowClick function with the clicked cell's data
     if (onRowClick) onRowClick(rowData, rowIndex);
   };
+
   return (
     <Table className="min-w-full bg-white border-spacing-0">
       <TableHeader className="w-full text-base text-gray-900 bg-gray-100 border-none">
@@ -54,18 +63,25 @@ export const DiligenceTable = ({
       </TableHeader>
       <TableBody className="w-full">
         {body?.map((row, rowIndex) => (
-          <TableRow className="w-full" key={rowIndex} onClick={() => handleRowClick(row, rowIndex)}>
+          <TableRow
+            className="w-full"
+            key={rowIndex}
+            onClick={() => handleRowClick(row, rowIndex)}
+          >
             {row?.map((cell, columnIndex) => (
               <TableCell
                 className={cn(
                   "text-sm text-gray-900 border-b-0 leading-5 text-left px-6 py-5 m-0 font-normal overflow-hidden max-w-max",
                   {
                     "text-[#0082AA]":
-                      row[row.length - 1] === "Under review" && columnIndex === row.length - 1,
+                      row[row.length - 1] === "Under review" &&
+                      columnIndex === row.length - 1,
                     "text-[#DE4A09]":
-                      row[row.length - 1] === "Completed" && columnIndex === row.length - 1,
+                      row[row.length - 1] === "Completed" &&
+                      columnIndex === row.length - 1,
                     "text-[#00D448]":
-                      row[row.length - 1] === "Paid" && columnIndex === row.length - 1,
+                      row[row.length - 1] === "Paid" &&
+                      columnIndex === row.length - 1,
                   },
                   {
                     "cursor-pointer": rowCursor,
@@ -83,3 +99,5 @@ export const DiligenceTable = ({
     </Table>
   );
 };
+
+export default CMTable;

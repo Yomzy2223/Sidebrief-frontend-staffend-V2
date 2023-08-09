@@ -33,12 +33,12 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <div className="flex h-screen">
-      <div className="flex-1 m-auto">
-        <div className=" w-4/5 m-auto">{children}</div>
+    <div className="flex h-screen max-h-screen overflow-auto">
+      <div className="flex flex-1 items-stretch m-auto min-h-full">
+        <div className=" w-8/12 m-auto pr-[min(2%,50px)] my-24">{children}</div>
       </div>
 
-      <div className="flex flex-col justify-between max-w-[40%] px-10 py-20 bg-primary ">
+      <div className="flex flex-col justify-between max-w-[40%] px-10 py-20 bg-secondary sticky top-0 ">
         <div className="space-y-6">
           <p className="text-white text-4xl font-semibold ">
             Quickly launch your business without stress

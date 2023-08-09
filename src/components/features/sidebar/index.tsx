@@ -51,23 +51,23 @@ const Sidebar = () => {
                 key={i}
                 className={cn(
                   "group flex px-4 py-3 rounded-lg ",
-                  active && "bg-background-blue text-primary "
+                  active && "bg-background-blue text-secondary "
                 )}
               >
                 <div className="flex items-center gap-2 ">
                   <item.icon
                     className={{
                       path: cn(
-                        "group-hover:fill-primary",
-                        active && "fill-primary"
+                        "group-hover:fill-secondary",
+                        active && "fill-secondary"
                       ),
                     }}
                   />
                   {open && (
                     <span
                       className={cn(
-                        "text-inherit group-hover:text-primary",
-                        active && "text-primary"
+                        "text-inherit group-hover:text-secondary",
+                        active && "text-secondary"
                       )}
                     >
                       {item.text}

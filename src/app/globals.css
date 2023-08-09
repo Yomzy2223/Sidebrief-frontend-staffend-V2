@@ -6,10 +6,9 @@
   :root {
     --background: 0 0% 100%; /* #ffffff */
     --foreground: 200 4% 15%; /* #242627 */
+    --foreground-grey: 195, 2%, 31% /*#4E5152*/
 
     --background-blue: 194 100% 42% / 0.1; /* rgba(0, 162, 212, 0.10) */
-
-    --foreground-blue: 194 100% 42%; /* #00A2D4 */
 
     --muted: 213 33% 95%; /* #EDF1F6 */
     --muted-foreground: 210 1% 59%; /* #959697 */
@@ -20,15 +19,13 @@
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
-    --border: 213 33% 95%; /* #EDF1F6 */
-    --input: 213 33% 95%; /* #EDF1F6 */
+    --border: 216 37% 95%; /*  */
+    --input: 0 0% 84%; /*  */
 
-    --label: 195 3% 31%; /* #4E5152 */
-
-    --primary: 194 100% 42%; /**/
+    --primary: 7 83% 58%; /**/
     --primary-foreground: 0 0% 100%; /**/
 
-    --secondary: 18 92% 45%; /**/
+    --secondary: 194 100% 42%; /**/
     --secondary-foreground: 0 0% 100%; /* #ffffff */
 
     --accent: 210 40% 96.1%;
@@ -54,6 +51,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.button-pattern {
+  background-image: url(../assets/images/button-pattern.png);
+  box-shadow: -5px 5px 5px black;
 }
 
 .swiper-pagination-bullet {

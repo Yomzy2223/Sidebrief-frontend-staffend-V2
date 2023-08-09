@@ -5,6 +5,11 @@ export interface cmFieldPropType {
   tipText?: string;
   type?: string;
   placeholder?: string;
-  textSize?: string;
+  className?: {
+    formItem: string;
+    label: string;
+    message: string;
+    input: string;
+  };
   bottom?: any;
 }

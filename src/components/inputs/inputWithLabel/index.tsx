@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { BsInfoCircle } from "react-icons/bs";
 import { cmFieldPropType } from "./constants";
+import infoIcon from "@/assets/icons/info.svg";
 
 const InputWithLabel = ({
   form,
@@ -23,7 +24,7 @@ const InputWithLabel = ({
   tipText,
   type,
   placeholder,
-  textSize,
+  className,
   bottom,
 }: cmFieldPropType) => {
   const [typeM, setTypeM] = useState(type);
@@ -32,17 +33,13 @@ const InputWithLabel = ({
 
   const fieldState = getFieldState(name, formState);
 
-  const Tooltip = (
-    <CMToolTip
-      content={<p className={`text-sm text-cm-black-400`}>{tipText}</p>}
-      trigger={<BsInfoCircle className={`relative text-cm-black-400 `} />}
-    />
-  );
-
   const toggleType = () => setTypeM(typeM === "password" ? "text" : "password");
 
   const Password = (
-    <p className="absolute right-2 cursor-pointer text-sm " onClick={toggleType}>
+    <p
+      className="absolute right-2 cursor-pointer text-sm "
+      onClick={toggleType}
+    >
       {typeM === "password" ? "Show" : "Hide"}
     </p>
   );
@@ -52,15 +49,30 @@ const InputWithLabel = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`flex flex-col justify-center !mt-0 `}>
+        <FormItem
+          className={cn(
+            "flex flex-col justify-center !mt-0 w-full",
+            className?.formItem
+          )}
+        >
           <div className="flex justify-between gap-4 mb-2 w-full">
             <div className={`flex justify-start items-center gap-2 text-sm `}>
-              <FormLabel className={`text-sm leading-3 font-normal text-label ${textSize} `}>
+              <FormLabel
+                className={cn(
+                  "text-base leading-3 font-normal text-foreground-grey",
+                  className?.label
+                )}
+              >
                 {label}
               </FormLabel>
-              {tipText && Tooltip}
+              {tipText && <Tooltip tipText={tipText} />}
             </div>
-            <FormMessage className={`min-w-max text-sm leading-3 font-normal ${textSize}`} />
+            <FormMessage
+              className={cn(
+                "min-w-max text-base leading-3 font-normal",
+                className?.message
+              )}
+            />
           </div>
           <FormControl>
             <div className="flex items-center !mt-0 relative ">
@@ -68,10 +80,7 @@ const InputWithLabel = ({
                 type={typeM}
                 placeholder={placeholder}
                 {...field}
-                className={cn(
-                  `placeholder:text-sm ${textSize && `placeholder:${textSize}`}`,
-                  type === "password" && "pr-12"
-                )}
+                className={className?.input}
                 error={fieldState.invalid}
               />
               {type === "password" && Password}
@@ -85,3 +94,10 @@ const InputWithLabel = ({
 };
 
 export default InputWithLabel;
+
+const Tooltip = ({ tipText }: { tipText: string }) => (
+  <CMToolTip
+    content={<p className={`text-sm text-muted-foreground`}>{tipText}</p>}
+    trigger={<Image src={infoIcon} alt="" />}
+  />
+);

@@ -1,21 +1,4 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-
-export const Back = () => {
-  const router = useRouter();
-
-  return (
-    <Button
-      variant={"ghost"}
-      size={"slim"}
-      className="flex gap-4"
-      onClick={() => {
-        router.back();
-      }}
-    >
-      <svg
+<svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -27,7 +10,3 @@ export const Back = () => {
           fill="#242627"
         />
       </svg>
-      Back
-    </Button>
-  );
-};

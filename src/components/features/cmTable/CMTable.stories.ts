@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { within } from "@storybook/testing-library";
 import { headers, dataBody } from "./constant";
-import { DiligenceTable } from ".";
+import DiligenceTable from "./index";
 
 const meta = {
   component: DiligenceTable,

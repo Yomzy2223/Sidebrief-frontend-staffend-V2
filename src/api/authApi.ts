@@ -1,23 +1,23 @@
-import { client } from "@/lib/globalFunctions";
+import { client } from "@/lib/config";
 
 // CORPORATE REQUEST FUNCTIONS
 // --------------------------------------------------------------------------------
 // Function to sign in
 export const signIn = (formInfo: any) => {
-  return client.post("/diligence/user/login", formInfo);
+  return client.post("", formInfo);
 };
 
 // Function to sign up
 export const signUp = (formInfo: any) => {
-  return client.post("/diligence/user", formInfo);
+  return client.post("", formInfo);
 };
 
 // Function to forgot password
 export const forgotPassword = (formInfo: any) => {
-  return client.post("/diligence/user/forgotpassword", formInfo);
+  return client.post("", formInfo);
 };
 
 // Function to change password
 export const changePassword = (formInfo: any) => {
-  return client.post("/diligence/user/resetPassword", formInfo);
+  return client.post("", formInfo);
 };
