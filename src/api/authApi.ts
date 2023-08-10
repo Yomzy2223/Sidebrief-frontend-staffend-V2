@@ -1,23 +1,36 @@
 import { client } from "@/lib/config";
 
-// CORPORATE REQUEST FUNCTIONS
+interface signInType {
+  email: string;
+  password: string;
+}
+
+interface signUpType extends signInType {
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+interface changePasswordType extends signInType {}
+
+// STAFF AUTH API
 // --------------------------------------------------------------------------------
-// Function to sign in
-export const signIn = (formInfo: any) => {
-  return client.post("", formInfo);
+// Sign staff in
+export const signIn = async (formInfo: signInType) => {
+  return await client.post("/staffs/login", formInfo);
 };
 
-// Function to sign up
-export const signUp = (formInfo: any) => {
-  return client.post("", formInfo);
+// Sign staff up
+export const signUp = async (formInfo: signUpType) => {
+  return await client.post("/staffs", formInfo);
 };
 
-// Function to forgot password
-export const forgotPassword = (formInfo: any) => {
-  return client.post("", formInfo);
+// Forgot staff password
+export const forgotPassword = async (formInfo: { email: string }) => {
+  return await client.post("/staffs/forgotpassword", formInfo);
 };
 
-// Function to change password
-export const changePassword = (formInfo: any) => {
-  return client.post("", formInfo);
+// Change staff password
+export const changePassword = async (formInfo: changePasswordType) => {
+  return await client.post("/staffs/passwordreset", formInfo);
 };
