@@ -21,13 +21,16 @@ module.exports = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         tab: "rgba(0, 162, 212, 0.10)",
+        orangeTab: "rgba(255, 0, 31, 0.10)",
+        greenTab: "rgba(0, 212, 72, 1)",
         background: {
           DEFAULT: "hsl(var(--background))",
           blue: "hsla(var(--background-blue))",
         },
         foreground: {
           DEFAULT: "hsl(var(--foreground))",
-          grey: "hsl(var(--foreground-grey))",
+          blue: "hsl(var(--foreground-blue))",
+          label: "hsl(var(--label))",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

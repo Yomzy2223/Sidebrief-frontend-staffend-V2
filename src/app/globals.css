@@ -55,7 +55,7 @@
 
 .button-pattern {
   background-image: url(../assets/images/button-pattern.png);
-  box-shadow: -5px 5px 5px black;
+  box-shadow: -3px 3px 3px #4f4f4f;
 }
 
 .swiper-pagination-bullet {

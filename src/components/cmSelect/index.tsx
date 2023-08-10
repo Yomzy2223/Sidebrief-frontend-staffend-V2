@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -24,7 +24,7 @@ const CMSelect = ({
   valueLabel,
 }: {
   label?: string;
-  placeholder: any;
+  placeholder?: any;
   options: string[];
   handleSelect?: (v: any) => void;
   className?: { trigger?: string };

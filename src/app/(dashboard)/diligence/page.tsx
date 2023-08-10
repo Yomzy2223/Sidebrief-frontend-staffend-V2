@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const Diligence = () => {
-  const empty = true;
+  const empty = false;
 
   return (
     <div className="">
