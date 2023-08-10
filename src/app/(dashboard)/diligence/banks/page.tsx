@@ -6,12 +6,12 @@ import { dataBody, headers } from './constant'
 const Banks = () => {
   return (
     <div>
-   <DiligenceTable
-   header={headers}
-   body={dataBody}
-   lastColumnCursor
-   link={true}
-  />
+      <DiligenceTable
+        header={headers}
+        body={dataBody}
+        lastColumnCursor
+        link={true}
+      />
     </div>
   )
 }
