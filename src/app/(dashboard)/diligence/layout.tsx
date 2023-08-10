@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { ActiveNav } from "@/components/features/activeNav";
 import { Search } from "@/components/features/Search";
 import CMSelect from "@/components/cmSelect";
+import BankHeader from "./header";
 
 const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
   const options = ["all", "pendings", "verified"];
   return (
     <div>
+      <BankHeader />
       <div className="flex w-full pl-10 pr-6 h-16 border-b border-[#EDF1F6] items-center justify-between">
         <div className="flex items-center gap-8">
           <ActiveNav title="Banks" path="/diligence/banks" length={5} />

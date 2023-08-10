@@ -9,15 +9,18 @@ const Requestlayout = ({children}:{ children: React.ReactNode }) => {
     <div className='pl-10 py-4 pr-6 flex items-center  justify-between'>
         <div className="flex items-center  gap-2">
         <ActiveNav
-            title='Pending'
-            path='/diligence/all-requests/pending'
-            status={true}
-            length= {5}/>
-            <ActiveNav
-            title='Verified'
-            path='/diligence/all-requests/verified'
-            status={true}
-            length= {126}/>
+          title='Pending'
+          path='/diligence/all-requests/pending'
+          status={true}
+          length= {5}
+        />
+            
+        <ActiveNav
+          title='Verified'
+          path='/diligence/all-requests/verified'
+          status={true}
+          length= {126}
+        />
         </div>
       <div className="flex">
         <Search/>
