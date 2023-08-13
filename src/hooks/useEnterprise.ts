@@ -8,11 +8,7 @@ import {
 	getNigerianbanks,
 } from "@/api/enterpriseApi";
 import { handleError, handleSuccess } from "@/lib/globalFunctions";
-import {
-	useMutation,
-	useQuery,
-	UseMutationOptions,
-} from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useEnterprise = () => {
@@ -68,7 +64,7 @@ export const useEnterprise = () => {
 	const viewAllEnterpriseQuery = () =>
 		useQuery({
 			queryKey: ["All Enterprise"],
-			queryFn: () => viewAllEnterprise,
+			queryFn: () => viewAllEnterprise(),
 		});
 
 	const getNigerianBanksQuery = () =>
