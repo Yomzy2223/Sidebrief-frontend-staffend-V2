@@ -1,5 +1,6 @@
 import { client } from "@/lib/config";
-import type { IBank } from "@/types/returns";
+import type { IBank, IEnterprise } from "@/types/returns";
+import type { dataReturntype } from "@/types";
 
 interface createType {
 	name: string;
@@ -12,11 +13,6 @@ interface createType {
 interface updateType extends createType {
 	enterpriseId: string;
 }
-
-type dataReturntype<T> = {
-	message: string;
-	data: T;
-};
 
 // ENTERPRISE API
 // --------------------------------------------------------------------------------
@@ -50,7 +46,9 @@ export const viewEnterpriseById = async (enterpriseId: string) => {
 
 // View all enterprise
 export const viewAllEnterprise = async () => {
-	return await client.get("/diligence/enterprise");
+	return await client.get<dataReturntype<IEnterprise[]>>(
+		"/diligence/enterprise"
+	);
 };
 
 // Get all Nigerian Banks

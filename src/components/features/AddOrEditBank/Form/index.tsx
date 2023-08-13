@@ -61,7 +61,7 @@ export const AddOrEditBankForm = ({
 
 	const setForm = useCallback(() => {
 		if (banks.length > 0 && details) {
-			form.setValue("bank", banks[0].name.toLowerCase());
+			form.setValue("bank", banks[0].id);
 			// form.setValue("adminName", details.adminName);
 			form.setValue("adminEmail", details.adminEmail);
 		}
@@ -78,7 +78,7 @@ export const AddOrEditBankForm = ({
 		if (isAdd) {
 			const requiredData = {
 				name: selectedBank?.name,
-				address: "string",
+				address: "",
 				adminEmail: values.adminEmail,
 				logo: selectedBank?.logo,
 				color: selectedBank?.color,

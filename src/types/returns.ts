@@ -18,3 +18,13 @@ export interface IEnterprise {
 	createdAt: string;
 	updatedAt: string;
 }
+
+export interface IRequest {
+	id: string;
+	name: string;
+	registrationNumber: string;
+	status: "Completed" | "Verified" | "Unverified" | "In progress";
+	createdBy: string;
+	createdAt: string;
+	updatedAt: string;
+}

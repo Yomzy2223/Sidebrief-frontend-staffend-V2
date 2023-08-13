@@ -32,11 +32,13 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.15.0",
     "lucide-react": "^0.263.1",
     "next": "13.4.12",
+    "numeral": "^2.0.6",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -56,6 +58,7 @@
     "@storybook/nextjs": "^7.2.1",
     "@storybook/react": "^7.2.1",
     "@storybook/testing-library": "^0.2.0",
+    "@types/numeral": "^2.0.2",
     "eslint-plugin-storybook": "^0.6.13",
     "storybook": "^7.2.1"
   }
