@@ -13,7 +13,7 @@ export const getAllYearsUpToCurrentYear = () => {
 };
 
 export const handleError = (error: any) => {
-	console.log(error);
+	console.log(error.response.data.error);
 };
 
 export const handleSuccess = (data: any) => {

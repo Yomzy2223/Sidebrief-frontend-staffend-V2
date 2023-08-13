@@ -2,61 +2,62 @@ import axios from "axios";
 import { getAllYearsUpToCurrentYear } from "./globalFunctions";
 
 export const allMonths = [
-  {
-    short: "Jan",
-    full: "January",
-  },
-  {
-    short: "Feb",
-    full: "February",
-  },
-  {
-    short: "Mar",
-    full: "March",
-  },
-  {
-    short: "Apr",
-    full: "April",
-  },
-  {
-    short: "May",
-    full: "May",
-  },
-  {
-    short: "Jun",
-    full: "June",
-  },
-  {
-    short: "Jul",
-    full: "July",
-  },
-  {
-    short: "Aug",
-    full: "August",
-  },
-  {
-    short: "Sep",
-    full: "September",
-  },
-  {
-    short: "Oct",
-    full: "October",
-  },
-  {
-    short: "Nov",
-    full: "November",
-  },
-  {
-    short: "Dec",
-    full: "December",
-  },
+	{
+		short: "Jan",
+		full: "January",
+	},
+	{
+		short: "Feb",
+		full: "February",
+	},
+	{
+		short: "Mar",
+		full: "March",
+	},
+	{
+		short: "Apr",
+		full: "April",
+	},
+	{
+		short: "May",
+		full: "May",
+	},
+	{
+		short: "Jun",
+		full: "June",
+	},
+	{
+		short: "Jul",
+		full: "July",
+	},
+	{
+		short: "Aug",
+		full: "August",
+	},
+	{
+		short: "Sep",
+		full: "September",
+	},
+	{
+		short: "Oct",
+		full: "October",
+	},
+	{
+		short: "Nov",
+		full: "November",
+	},
+	{
+		short: "Dec",
+		full: "December",
+	},
 ];
 
 export const allYears = getAllYearsUpToCurrentYear();
 
 export const client = axios.create({
-  baseURL: "https://iapkmjspxh.us-east-1.awsapprunner.com",
-  headers: {
-    "Content-Type": "application/json",
-  },
+	baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+	headers: {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`,
+	},
 });
