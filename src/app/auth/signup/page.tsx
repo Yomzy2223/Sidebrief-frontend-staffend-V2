@@ -11,10 +11,10 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/images/sidebrief-logo.png";
 import InputWithLabel from "@/components/inputs/inputWithLabel";
-import { Separator } from "@/components/ui/separator";
 
 const SignUp = () => {
-  const { signUp } = useAuth();
+  const { signUp, signUpMutation } = useAuth();
+  const { isLoading } = signUpMutation;
 
   // Form definition
   const form = useForm<signUpType>({
@@ -38,9 +38,7 @@ const SignUp = () => {
       <Form {...form}>
         <div>
           <h1 className="mb-4 text-3xl font-medium">Create account</h1>
-          <p className="text-muted-foreground">
-            Join our 500+ customers to scale your business
-          </p>
+          <p className="text-muted-foreground">Join our 500+ customers to scale your business</p>
         </div>
         <div className="flex  gap-6">
           {signUpOptions.map((el, i) => (
@@ -54,11 +52,7 @@ const SignUp = () => {
             </Button>
           ))}
         </div>
-        <div></div>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-16  "
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16  ">
           <div className="flex flex-col gap-6 space-y-8 py-2 bg-white rounded-lg ">
             <div className="flex  gap-4">
               <InputWithLabel
@@ -76,6 +70,13 @@ const SignUp = () => {
             </div>
             <InputWithLabel
               form={form}
+              name="phone"
+              label="Phone number"
+              placeholder="+23456789123456"
+              type="number"
+            />
+            <InputWithLabel
+              form={form}
               name="email"
               label="Work email"
               placeholder="example@sidebrief.com"
@@ -88,19 +89,11 @@ const SignUp = () => {
               placeholder="Enter password"
               tipText="Must be at least 6 characters"
               type="password"
-              bottom={
-                <Link
-                  href="/auth/forgot-password"
-                  className="flex self-end text-sm"
-                >
-                  Forgot password?
-                </Link>
-              }
             />
           </div>
 
-          <div className="flex flex-col items-center gap-8">
-            <Button type="submit" size="full">
+          <div className="flex flex-col gap-8">
+            <Button type="submit" size="full" loading={isLoading}>
               Create account
             </Button>
             <p>
