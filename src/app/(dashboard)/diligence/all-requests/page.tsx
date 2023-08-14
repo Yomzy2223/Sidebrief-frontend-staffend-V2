@@ -6,6 +6,7 @@ import React from "react";
 import { useEnterprise, useRequest } from "@/hooks";
 import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
+import { getTimeInfo } from "@/lib/globalFunctions";
 
 
 
@@ -38,7 +39,8 @@ const headers = [
       parseJSON(request.updatedAt),
       "dd/MM/yyyy"
     ),
-  '7pm',
+    getTimeInfo(request.updatedAt),
+  ,
    
   
   ])

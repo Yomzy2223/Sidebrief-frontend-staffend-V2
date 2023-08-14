@@ -5,6 +5,7 @@ import { dataBody, headers } from "./constant";
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
+import { getTimeInfo } from "@/lib/globalFunctions";
 
 
 const Unverified = () => {
@@ -34,7 +35,7 @@ const Unverified = () => {
         parseJSON(request.updatedAt),
         "dd/MM/yyyy"
       ),
-    '7pm',
+      getTimeInfo(request.updatedAt),
      
     
     ])

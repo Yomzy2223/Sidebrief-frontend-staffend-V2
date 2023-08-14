@@ -5,6 +5,7 @@ import React from "react";
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
+import { getTimeInfo } from "@/lib/globalFunctions";
 
 
 const Completed = () => {
@@ -34,7 +35,7 @@ const Completed = () => {
         parseJSON(request.updatedAt),
         "dd/MM/yyyy"
       ),
-    '7pm',
+      getTimeInfo(request.updatedAt),
      
     
     ])

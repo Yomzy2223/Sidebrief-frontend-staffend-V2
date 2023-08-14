@@ -58,13 +58,16 @@ const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
 						<Search />
 					</div>
 				) : (
-					<div className="flex items-center gap-2 w-fit">
-						<p className="text-sm w-full font-normal text-[#4E5152] leading-[21px]">
-							{" "}
-							Filter by:
-						</p>
-						<CMSelect defaultValue="All" options={options} handleSelect={(e)=>handleSelect(e)}/>
-					</div>
+					<p className="flex">
+						
+					</p>
+					// <div className="flex items-center gap-2 w-fit">
+					// 	<p className="text-sm w-full font-normal text-[#4E5152] leading-[21px]">
+					// 		{" "}
+					// 		Filter by:
+					// 	</p>
+					// 	<CMSelect defaultValue="All" options={options} handleSelect={(e)=>handleSelect(e)}/>
+					// </div>
 				)}
 			</div>
 			{children}
