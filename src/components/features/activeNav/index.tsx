@@ -24,7 +24,7 @@ export const ActiveNav = ({title, path='',  length, status}:TabProps) => {
           {
             "border-b-4  border-[#00A2D4]":isActive && !status,
             "bg-white":isActive && status,
-            "bg-gray-300": isActive && (title === 'Verified' || title === 'Pending')
+            "bg-gray-300": isActive && (title === 'Verified' || title === 'Unverified' || title === 'In Progress'|| title === 'Completed')
           })
         }
         >
@@ -33,12 +33,12 @@ export const ActiveNav = ({title, path='',  length, status}:TabProps) => {
       'text-gray-900': isActive})}>{title}</p>
       <div className={cn("flex py-1 px-2 mr-3 flex-col justify-center items-center bg-tab rounded-[10px]",{
       
-      "bg-orangeTab": status && title ==='Pending' ,
+      "bg-orangeTab": status && title ==='Unverified' ,
       "bg-[#CFFFEC]": status && title ==='Verified',
         })}>
                     <p className={cn("text-sm not-italic font-normal  text-[#00A2D4]", {
-                      'text-[#9E3427]' :status && title ==='Pending',
-                      'text-greenTab': status && title ==='Verified',
+                      'text-[#9E3427]' :status && (title ==='Unverified' || title ==='In Progress'),
+                      'text-greenTab': status && (title ==='Verified'|| title==='Completed'),
 
                     })}>{length}</p>
                   </div>
