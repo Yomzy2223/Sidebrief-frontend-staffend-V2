@@ -8,13 +8,13 @@ import { format, parseJSON } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 
 
-const Verified = () => {
+const Unverified = () => {
 
   const { viewAllRequestQuery } = useRequest();
   const allRequest=viewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data
 
-  const verified = allRequestData?. filter (el=>el?.status==='Verified')
+  const unVerified = allRequestData?. filter (el=>el?.status==='Unverified')
   const headers = [
     'S/N',
    'Business name',
@@ -26,7 +26,7 @@ const Verified = () => {
   ]
   
    
-    const bodyData = verified?.map((request, index)=> [
+    const bodyData = unVerified?.map((request, index)=> [
       numeral(index + 1).format("00"),
       request?.name,
       request?.registrationNumber,
@@ -43,4 +43,4 @@ const Verified = () => {
   return <CMTable header={headers} body={bodyData} lastColumnCursor />;
 };
 
-export default Verified;
+export default Unverified;
