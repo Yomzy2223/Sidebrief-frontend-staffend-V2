@@ -5,10 +5,12 @@ import yahooIcon from "@/assets/icons/yahoo.svg";
 export const signUpSchema = z.object({
   firstName: z.string().nonempty("Enter your first name"),
   lastName: z.string().nonempty("Enter your last name"),
-  email: z
-    .string()
-    .email("Enter a valid email")
-    .nonempty("Enter your email address"),
+  phone: z
+    .string({
+      required_error: "Enter your phone number",
+    })
+    .refine((phone) => phone.length === 11, { message: "Enter a valid phone number" }),
+  email: z.string().email("Enter a valid email address"),
   password: z
     .string()
     .min(6, "Password must be 6 or more characters")

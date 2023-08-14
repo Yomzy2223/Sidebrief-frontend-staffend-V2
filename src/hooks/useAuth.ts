@@ -1,20 +1,21 @@
 import { changePassword, forgotPassword, signIn, signUp } from "@/api/authApi";
-import { handleError, handleSuccess } from "@/lib/globalFunctions";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useResponse } from "./useResponse";
 
 export const useAuth = () => {
+  const { handleError, handleSuccess } = useResponse();
   const router = useRouter();
 
   const signUpMutation = useMutation({
     mutationFn: signUp,
     onError(error, variables, context) {
-      handleError(error);
+      handleError({ title: "Sign up failed", error });
     },
     onSuccess(data, variables, context) {
-      localStorage.setItem("userInfo", data.data);
-      router.push("/");
-      handleSuccess(data);
+      handleSuccess({ data });
+      localStorage.setItem("userInfo", JSON.stringify(data.data));
+      // router.push("/");
     },
     retry: 3,
   });
@@ -22,13 +23,12 @@ export const useAuth = () => {
   const signInMutation = useMutation({
     mutationFn: signIn,
     onError(error, variables, context) {
-      handleError(error);
+      handleError({ title: "Login failed", error });
     },
     onSuccess(data, variables, context) {
-      console.log(data);
-      router.push("/");
-      localStorage.setItem("userInfo", data.data);
-      handleSuccess(data);
+      handleSuccess({ data });
+      localStorage.setItem("userInfo", JSON.stringify(data.data));
+      // router.push("/");
     },
     retry: 3,
   });
@@ -36,11 +36,11 @@ export const useAuth = () => {
   const forgotPasswordMutation = useMutation({
     mutationFn: forgotPassword,
     onError(error, variables, context) {
-      handleError(error);
+      handleError({ title: "Failed", error });
     },
     onSuccess(data, variables, context) {
-      router.push("/auth/new-password");
-      handleSuccess(data);
+      handleSuccess({ data });
+      router.push("/auth/forgot-password");
     },
     retry: 3,
   });
@@ -48,10 +48,10 @@ export const useAuth = () => {
   const changePasswordMutation = useMutation({
     mutationFn: changePassword,
     onError(error, variables, context) {
-      handleError(error);
+      handleError({ title: "Failed", error });
     },
     onSuccess(data, variables, context) {
-      handleSuccess(data);
+      handleSuccess({ data });
     },
     retry: 3,
   });

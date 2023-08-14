@@ -11,18 +11,20 @@ interface signUpType extends signInType {
   phone: string;
 }
 
-interface changePasswordType extends signInType {}
+interface forgotPasswordType extends signInType {
+  token: string;
+}
 
 // STAFF AUTH API
 // --------------------------------------------------------------------------------
-// Sign staff in
-export const signIn = async (formInfo: signInType) => {
-  return await client.post("/staffs/login", formInfo);
-};
-
 // Sign staff up
 export const signUp = async (formInfo: signUpType) => {
   return await client.post("/staffs", formInfo);
+};
+
+// Sign staff in
+export const signIn = async (formInfo: signInType) => {
+  return await client.post("/staffs/login", formInfo);
 };
 
 // Forgot staff password
@@ -31,6 +33,6 @@ export const forgotPassword = async (formInfo: { email: string }) => {
 };
 
 // Change staff password
-export const changePassword = async (formInfo: changePasswordType) => {
+export const changePassword = async (formInfo: forgotPasswordType) => {
   return await client.post("/staffs/passwordreset", formInfo);
 };
