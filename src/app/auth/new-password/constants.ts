@@ -1,29 +1,16 @@
 import * as z from "zod";
-import googleIcon from "@/assets/icons/google.svg";
-import yahooIcon from "@/assets/icons/yahoo.svg";
 
-export const signUpSchema = z.object({
-  firstName: z.string().nonempty("Enter your first name"),
-  lastName: z.string().nonempty("Enter your last name"),
-  email: z
-    .string()
-    .email("Enter a valid email")
-    .nonempty("Enter your email address"),
-  password: z
-    .string()
-    .min(6, "Password must be 6 or more characters")
-    .nonempty("Enter your password"),
-});
+export const newPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(6, "Password must be 6 or more characters")
+      .nonempty("Enter your password"),
+    confirmPassword: z.string().nonempty("Must match your new password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
-export type signUpType = z.infer<typeof signUpSchema>;
-
-export const signUpOptions = [
-  {
-    icon: googleIcon,
-    text: "Sign up with Google",
-  },
-  {
-    icon: yahooIcon,
-    text: "Sign up with Yahoo",
-  },
-];
+export type newPasswordType = z.infer<typeof newPasswordSchema>;

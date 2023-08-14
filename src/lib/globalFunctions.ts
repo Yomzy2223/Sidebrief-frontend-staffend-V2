@@ -1,28 +1,23 @@
 // import axios from "axios";
 
 export const getAllYearsUpToCurrentYear = () => {
-	const currentYear = new Date().getFullYear();
-	const startYear = 2022;
+  const currentYear = new Date().getFullYear();
+  const startYear = 2022;
 
-	const allYears = [];
-	for (let year = startYear; year <= currentYear; year++) {
-		allYears.push(year.toString());
-	}
+  const allYears = [];
+  for (let year = startYear; year <= currentYear; year++) {
+    allYears.push(year.toString());
+  }
 
-	return allYears;
+  return allYears;
 };
 
-export const handleError = (error: any) => {
-	console.log(error);
-};
+export const getUserInfo = () => {
+  let userInfo = localStorage.getItem("userInfo");
+  let parsedUserInfo;
 
-export const handleSuccess = (data: any) => {
-	console.log(data);
+  if (userInfo) {
+    parsedUserInfo = JSON.parse(userInfo);
+  }
+  return parsedUserInfo || {};
 };
-
-// export const client = axios.create({
-//   baseURL: "https://iapkmjspxh.us-east-1.awsapprunner.com",
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });

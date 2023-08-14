@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { BrFirma } from "@/font";
 import Providers from "@/lib/provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={BrFirma.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
