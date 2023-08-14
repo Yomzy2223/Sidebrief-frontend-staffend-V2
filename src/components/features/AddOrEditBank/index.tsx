@@ -9,7 +9,6 @@ type addEditBankProps = {
 	| {
 			variant: "edit";
 			bankname: string;
-			adminName: string;
 			adminEmail: string;
 	  }
 	| { variant: "add"; banks: IBank[] }
@@ -31,13 +30,13 @@ export const AddOrEditBank = (props: addEditBankProps) => {
 						: [
 								// should be replaced later
 								{
-									id: "07efc1ca-0cec-4556-b1ea-b2645e3721d5",
-									name: "Fidelity Bank",
+									id: "Some-id",
+									name: props.bankname,
 									color: null,
-									slug: "fidelity-bank",
-									logo: "https://nigerianbanks.xyz/logo/fidelity-bank.png",
-									createdAt: "2023-08-12T08:58:25.747Z",
-									updatedAt: "2023-08-12T08:58:25.747Z",
+									slug: "",
+									logo: "",
+									createdAt: "",
+									updatedAt: "",
 								},
 						  ]
 				}

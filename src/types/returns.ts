@@ -17,6 +17,8 @@ export interface IEnterprise {
 	logo: string;
 	createdAt: string;
 	updatedAt: string;
+	diligenceManager: IDiligenceManager[];
+	diligenceRequest: IRequest[];
 }
 
 export interface IRequest {
@@ -27,4 +29,24 @@ export interface IRequest {
 	createdBy: string;
 	createdAt: string;
 	updatedAt: string;
+	diligenceEnterpriseId: string;
+}
+
+export interface IDiligenceManager {
+	id: string;
+	name: string;
+	location: string;
+	managerEmail: string;
+	createdAt: string;
+	updatedAt: string;
+	diligenceEnterpriseId: string;
+	diligenceStaff: IDiliigenceStaff[];
+}
+
+export interface IDiliigenceStaff {
+	id: string;
+	email: string;
+	createdAt: string;
+	updatedAt: string;
+	diligenceManagerId: string;
 }

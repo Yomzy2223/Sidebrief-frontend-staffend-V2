@@ -6,8 +6,11 @@ import { headers } from "./constant";
 import { useEnterprise, useRequest } from "@/hooks";
 import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
+import { useRouter } from "next/navigation";
 
 const Banks = () => {
+	const router = useRouter();
+
 	const { viewAllEnterpriseQuery } = useEnterprise();
 	const { viewAllRequestQuery } = useRequest();
 
@@ -22,7 +25,7 @@ const Banks = () => {
 			const selected = enterprises.find(
 				(enterprise) => enterprise.name === name
 			)!;
-			console.log(selected.adminEmail);
+			router.push(`/diligence/banks/${selected.id}`);
 		}
 	};
 
@@ -42,10 +45,8 @@ const Banks = () => {
 							// 	bankName: enterprise.name,
 							// },
 							enterprise.name,
-							allRequest.data.data.data.filter(
-								(request) =>
-									request.createdBy === enterprise.adminEmail
-							).length,
+							enterprise.diligenceRequest.length,
+							enterprise.diligenceManager.length,
 							format(
 								parseJSON(enterprise.createdAt),
 								"dd/MM/yyyy"

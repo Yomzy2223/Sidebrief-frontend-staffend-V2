@@ -3,7 +3,7 @@ export const headers = [
 	"S/N",
 	"Onboarded Banks",
 	"Requests",
-	// 'Branches',
+	"Branches",
 	"Date",
 	// 'Registration URl',
 ];
