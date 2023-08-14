@@ -11,8 +11,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
-import { allMonths } from "@/lib/config";
 
 const CMSelect = ({
   label,
@@ -21,33 +19,27 @@ const CMSelect = ({
   handleSelect,
   className,
   defaultValue,
-  valueLabel,
 }: {
   label?: string;
-  placeholder?: any;
+  placeholder?: string;
   options: string[];
   handleSelect?: (v: any) => void;
   className?: { trigger?: string };
   defaultValue?: string;
-  valueLabel?: string;
 }) => {
+  
   return (
     <Select onValueChange={handleSelect} defaultValue={defaultValue}>
       <SelectTrigger
-        className={cn(
-          buttonVariants({
-            variant: "outline",
-            className: cn("bg-transparent text-white", className?.trigger),
-          })
-        )}
+        className={cn("w-[140px] rounded-lg bg-white/50 ", className?.trigger)}
       >
-        <p className="mr-2">{valueLabel}</p>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          <SelectLabel>{label}</SelectLabel>
           {options.map((option, i) => (
-            <SelectItem key={i} value={option}>
+            <SelectItem key={i} value={option} className="!text-gray-900">
               {option}
             </SelectItem>
           ))}
