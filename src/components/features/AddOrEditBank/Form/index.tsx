@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, Check } from "lucide-react";
 import type { IBank } from "@/types/returns";
 import { useEnterprise } from "@/hooks/useEnterprise";
+import { DialogClose } from "@/components/ui/dialog";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -39,6 +40,7 @@ export const AddOrEditBankForm = ({
     | {
         // adminName: string;
         adminEmail: string;
+        address: string;
       }
     | false;
 }) => {
@@ -60,6 +62,7 @@ export const AddOrEditBankForm = ({
       form.setValue("bank", banks[0].id);
       // form.setValue("adminName", details.adminName);
       form.setValue("adminEmail", details.adminEmail);
+      form.setValue("address", details.address);
     }
   }, [banks, form, details]);
 
@@ -74,7 +77,7 @@ export const AddOrEditBankForm = ({
     if (isAdd) {
       const requiredData = {
         name: selectedBank?.name,
-        address: "",
+        address: values.address,
         adminEmail: values.adminEmail,
         logo: selectedBank?.logo,
         color: selectedBank?.color,
@@ -154,23 +157,19 @@ export const AddOrEditBankForm = ({
             </FormItem>
           )}
         />
-        {/* <FormField
-					control={form.control}
-					name="adminName"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Account admin name</FormLabel>
-							<FormControl>
-								<Input
-									placeholder="Enter admin name"
-									className="px-6 py-4"
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/> */}
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter address" className="px-6 py-4" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="adminEmail"
@@ -184,9 +183,11 @@ export const AddOrEditBankForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          {isAdd ? "Add" : "Done"}
-        </Button>
+        <DialogClose className="w-full">
+          <Button type="submit" className="w-full">
+            {createEnterprise.isLoading ? "Loading..." : isAdd ? "Add" : "Done"}
+          </Button>
+        </DialogClose>
       </form>
     </Form>
   );

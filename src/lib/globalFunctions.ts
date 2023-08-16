@@ -64,3 +64,14 @@ export const handleDownloadFile = (cloudinaryLink: string, fileName: string) => 
 
   return result;
 };
+
+export async function checkIsImage(url: string): Promise<boolean> {
+  try {
+    const response = await axios.get(url, { responseType: "arraybuffer" });
+    const contentType = response.headers["content-type"];
+    return contentType.startsWith("image/");
+  } catch (error: any) {
+    console.error("Error:", error.message);
+    return false;
+  }
+}
