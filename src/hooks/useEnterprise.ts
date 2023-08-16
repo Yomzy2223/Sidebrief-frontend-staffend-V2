@@ -12,7 +12,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useEnterprise = () => {
-  const createEnterpriseMutation = () =>
+  const useCreateEnterpriseMutation = () =>
     useMutation({
       mutationFn: createEnterprise,
       onError(error, variables, context) {
@@ -49,40 +49,40 @@ export const useEnterprise = () => {
     retry: 3,
   });
 
-  const viewEnterpriseByEmailQuery = (adminEmail: string) =>
+  const useViewEnterpriseByEmailQuery = (adminEmail: string) =>
     useQuery({
       queryKey: ["Single Enterprise By Email", adminEmail],
       queryFn: ({ queryKey }) => viewEnterpriseByEmail(queryKey[1]),
     });
 
-  const viewEnterpriseByIdQuery = (id: string) =>
+  const useViewEnterpriseByIdQuery = (id: string) =>
     useQuery({
       queryKey: ["Single Enterprise By Id", id],
       queryFn: ({ queryKey }) => viewEnterpriseById(queryKey[1]),
     });
 
-  const viewAllEnterpriseQuery = () =>
+  const useViewAllEnterpriseQuery = () =>
     useQuery({
       queryKey: ["All Enterprise"],
       queryFn: () => viewAllEnterprise(),
     });
 
-  const getNigerianBanksQuery = () =>
+  const useGetNigerianBanksQuery = () =>
     useQuery({
       queryKey: ["Nigerian Banks"],
       queryFn: getNigerianbanks,
     });
 
   return {
-    createEnterpriseMutation,
-    // createEnterprise: createEnterpriseMutation.mutate,
+    useCreateEnterpriseMutation,
+    // createEnterprise: useCreateEnterpriseMutation.mutate,
     updateEnterpriseMutation,
     // updateEnterprise: updateEnterpriseMutation.mutate,
     deleteEnterpriseMutation,
     // deleteEnterprise: deleteEnterpriseMutation.mutate,
-    viewEnterpriseByEmailQuery,
-    viewEnterpriseByIdQuery,
-    viewAllEnterpriseQuery,
-    getNigerianBanksQuery,
+    useViewEnterpriseByEmailQuery,
+    useViewEnterpriseByIdQuery,
+    useViewAllEnterpriseQuery,
+    useGetNigerianBanksQuery,
   };
 };

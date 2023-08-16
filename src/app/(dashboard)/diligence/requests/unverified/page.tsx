@@ -7,8 +7,8 @@ import { format, parseJSON } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 
 const Unverified = () => {
-  const { viewAllRequestQuery } = useRequest();
-  const allRequest = viewAllRequestQuery();
+  const { useViewAllRequestQuery } = useRequest();
+  const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
 
   const unVerified = allRequestData?.filter((el) => el?.status === "Unverified");

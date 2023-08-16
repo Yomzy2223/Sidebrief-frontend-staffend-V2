@@ -8,8 +8,8 @@ import { format, parseJSON } from "date-fns";
 import { IDiligenceManager, IRequest } from "@/types/returns";
 
 export default function BankDetail({ params }: { params: { id: string } }) {
-  const { viewEnterpriseByIdQuery } = useEnterprise();
-  const enterpriseById = viewEnterpriseByIdQuery(params.id);
+  const { useViewEnterpriseByIdQuery } = useEnterprise();
+  const enterpriseById = useViewEnterpriseByIdQuery(params.id);
   const selectedEnterprise = enterpriseById.data?.data.data;
 
   const getRequestsAssociatedWithbranch: (a: IDiligenceManager, b: IRequest[]) => number = (

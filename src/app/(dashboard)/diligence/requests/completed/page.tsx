@@ -13,10 +13,10 @@ const Completed = () => {
   const [showResult, setShowResult] = useState(false);
   const [requestId, setRequestId] = useState("");
 
-  const { viewAllRequestQuery, lazyGetRequestDocumentQuery } = useRequest();
-  const allRequest = viewAllRequestQuery();
+  const { useViewAllRequestQuery, useLazyGetRequestDocumentQuery } = useRequest();
+  const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
-  const requestDocument = lazyGetRequestDocumentQuery(requestId);
+  const requestDocument = useLazyGetRequestDocumentQuery(requestId);
   const documents = requestDocument.data?.data.data;
 
   const completed = allRequestData?.filter((el) => el?.status === "Completed");

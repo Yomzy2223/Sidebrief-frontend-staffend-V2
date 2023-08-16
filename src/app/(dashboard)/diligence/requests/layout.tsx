@@ -5,8 +5,8 @@ import { useRequest } from "@/hooks";
 import React from "react";
 
 const Requestlayout = ({ children }: { children: React.ReactNode }) => {
-  const { viewAllRequestQuery } = useRequest();
-  const allRequest = viewAllRequestQuery();
+  const { useViewAllRequestQuery } = useRequest();
+  const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
 
   const unVerified = allRequestData?.filter((el) => el?.status === "Unverified");

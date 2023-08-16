@@ -9,8 +9,8 @@ import { format, parseJSON } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 
 const AllRequest = () => {
-  const { viewAllRequestQuery } = useRequest();
-  const allRequest = viewAllRequestQuery();
+  const { useViewAllRequestQuery } = useRequest();
+  const allRequest = useViewAllRequestQuery();
 
   const headers = ["S/N", "Business name", "Business reg number", "Requested by", "Date", "Time"];
 

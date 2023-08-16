@@ -6,8 +6,8 @@ import { useEnterprise } from "@/hooks";
 import Image from "next/image";
 
 export const BankDetailHeader = ({ id }: { id: string }) => {
-  const { viewEnterpriseByIdQuery } = useEnterprise();
-  const enterpriseById = viewEnterpriseByIdQuery(id);
+  const { useViewEnterpriseByIdQuery } = useEnterprise();
+  const enterpriseById = useViewEnterpriseByIdQuery(id);
   const selectedEnterprise = enterpriseById.data?.data.data;
 
   return (

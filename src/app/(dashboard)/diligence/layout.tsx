@@ -14,12 +14,12 @@ const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
   const options = ["All", "Bank"];
   const [value, setValue] = useState("");
 
-  const { viewAllEnterpriseQuery } = useEnterprise();
+  const { useViewAllEnterpriseQuery } = useEnterprise();
 
-  const allEnterprise = viewAllEnterpriseQuery();
+  const allEnterprise = useViewAllEnterpriseQuery();
 
-  const { viewAllRequestQuery } = useRequest();
-  const allRequest = viewAllRequestQuery();
+  const { useViewAllRequestQuery } = useRequest();
+  const allRequest = useViewAllRequestQuery();
 
   const router = useRouter();
   //   const handleSelect =(e: React.ChangeEvent<HTMLSelectElement>) => {
