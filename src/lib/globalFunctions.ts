@@ -1,4 +1,5 @@
-// import axios from "axios";
+import axios from "axios";
+import { saveAs } from "file-saver";
 
 export const getAllYearsUpToCurrentYear = () => {
   const currentYear = new Date().getFullYear();
@@ -41,7 +42,7 @@ interface TimeProps {
   formattedTime: string;
   timeType: string;
 }
-export function getTimeInfo(timestampStr: string): TimeProps {
+export function getTimeInfo(timestampStr: string): string {
   const date = new Date(timestampStr);
 
   const hours = date.getHours();
@@ -51,3 +52,15 @@ export function getTimeInfo(timestampStr: string): TimeProps {
   const formattedTime = `${hours}:${minutes.substr(-2)} ${timeType}`;
   return formattedTime;
 }
+
+export const handleDownloadFile = (cloudinaryLink: string, fileName: string) => {
+  const result = axios
+    .get(cloudinaryLink, {
+      responseType: "blob",
+    })
+    .then((res) => {
+      saveAs(res.data, fileName);
+    });
+
+  return result;
+};
