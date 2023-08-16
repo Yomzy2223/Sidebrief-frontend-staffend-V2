@@ -18,3 +18,19 @@ export const deleteRequest = async (requestId: string) => {
 export const getRequestdocument = async (requestId: string) => {
   return await client.get<dataReturntype<IDocument[]>>(`/diligence/document/${requestId}`);
 };
+
+// Upload Request Document
+export const submitRequestDocument = async ({
+  requestId,
+  formInfo,
+}: {
+  requestId: string;
+  formInfo: {
+    name: string;
+    description: string;
+    link: string;
+    type: string;
+  };
+}) => {
+  return await client.post(`/diligence/document/${requestId}`, formInfo);
+};

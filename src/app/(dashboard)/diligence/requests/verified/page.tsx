@@ -6,10 +6,11 @@ import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { Dialog } from "@/components/customdialog";
-import { FileUpload } from "@/components/customdialog/fileUpload";
+import { RequestVerifyForm } from "@/components/features/fileUpload/requestVerifyForm";
 
 const Verified = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [requestId, setRequestId] = useState("");
 
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
@@ -52,8 +53,7 @@ const Verified = () => {
       setShowUploadModal(true);
       if (verified) {
         const id = verified[rowIndex as number].id;
-        console.log(id);
-        // setRequestId(id);
+        setRequestId(id);
       }
     }
   };
@@ -83,8 +83,7 @@ const Verified = () => {
         title={"Upload document"}
         showCloseButton={false}
       >
-        <div>I am the dialog</div>
-        <FileUpload />
+        <RequestVerifyForm requestId={requestId} closeModal={cancelDialog} />
       </Dialog>
     </>
   );
