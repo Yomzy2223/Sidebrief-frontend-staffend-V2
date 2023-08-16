@@ -55,6 +55,7 @@ export default function BankDetail({ params }: { params: { id: string } }) {
             ? selectedEnterprise?.logo || ""
             : "https://pixabay.com/get/g2cea5168d86f14a8bf1098146976727014f3447d841bfe53f29569743393808e2a2121aea7c81082693d95ffa0aa160a_1280.png"
         }
+        id={selectedEnterprise?.id as string}
       />
       <div className="space-y-4">
         <h6 className="text-xl font-semibold leading-6 text-foreground">Onboarded branches</h6>

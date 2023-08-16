@@ -19,6 +19,7 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
     const checkIfImage = async () => {
       if (selectedEnterprise) {
         const isImage = await checkIsImage(selectedEnterprise?.logo);
+        console.log(isImage);
         setIsImage(isImage);
         setImageChecked(true);
       }
@@ -52,7 +53,7 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
           </div>
           <div className="flex gap-6">
             {/* TODO: should navigate to invoice page */}
-            <Button>See invoice</Button>
+            {/* <Button>See invoice</Button> */}
           </div>
         </div>
       </div>
