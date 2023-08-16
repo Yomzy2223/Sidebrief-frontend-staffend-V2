@@ -18,6 +18,7 @@ const nextConfig = {
         hostname: "nigerianbanks.xyz",
       },
     ],
+    domains: ["res.cloudinary.com"],
     minimumCacheTTL: 1500000,
   },
 };
