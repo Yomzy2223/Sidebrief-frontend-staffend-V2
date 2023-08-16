@@ -9,6 +9,7 @@ interface BankInfoProps {
   address: string;
   adminEmail: string;
   brandColor?: string;
+  id: string;
 }
 
 export const BankSettingInfo = ({
@@ -17,6 +18,7 @@ export const BankSettingInfo = ({
   address,
   adminEmail,
   brandColor,
+  id,
 }: BankInfoProps) => {
   return (
     <div className="space-y-4">
@@ -44,6 +46,7 @@ export const BankSettingInfo = ({
               bankname={name}
               address={address}
               triggerText="Edit"
+              bankId={id}
             />
             {/* <Button
 							variant={"outline"}
