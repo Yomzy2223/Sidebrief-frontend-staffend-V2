@@ -96,26 +96,13 @@ const Completed = () => {
         action={doneAction}
       >
         {documents && (
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <FileDisplay
-                fileName={documents[0].name}
-                type={documents[0].type}
-                link={documents[0].link}
-              />
-              <div className="bg-secondary/10 w-fit p-2.5 rounded">
-                <span className="text-secondary">
-                  Uploaded by {format(parseJSON(documents[0].createdAt), "h:mm aaa, d/M/yyyy.")}
-                </span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p className="text-lg font-semibold">Note</p>
-              <div className="p-2.5 border rounded">
-                <p>{documents[0].description}</p>
-              </div>
-            </div>
-          </div>
+          <FileDisplay
+            fileName={documents[0].name}
+            type={documents[0].type}
+            link={documents[0].link}
+            date={documents[0].createdAt}
+            description={documents[0].description}
+          />
         )}
       </Dialog>
     </>
