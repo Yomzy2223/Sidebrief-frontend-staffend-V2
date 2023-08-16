@@ -2,22 +2,35 @@ import { useToast } from "@/components/ui/use-toast";
 
 export const useResponse = () => {
   const { toast } = useToast();
+  interface responseType {
+    title?: string;
+    action?: any;
+    hideIcon?: boolean;
+  }
+  interface successType extends responseType {
+    data: any;
+  }
+  interface errorType extends responseType {
+    error: any;
+  }
 
-  const handleError = ({ error, title, action }: { error: any; title?: string; action?: any }) => {
-    console.log(error);
+  const handleError = ({ error, title, action, hideIcon }: errorType) => {
     toast({
-      className: "bg-red-200",
+      className: "bg-red-200 border-secondary",
       title,
-      description: error?.response?.data?.error,
+      description: error.response.data.error,
+      success: hideIcon ? null : false,
+      action,
     });
   };
 
-  const handleSuccess = ({ data, title, action }: { data: any; title?: string; action?: any }) => {
+  const handleSuccess = ({ data, title, action, hideIcon }: successType) => {
     toast({
-      className: "bg-green-200",
+      className: "bg-blue-100 ",
       title,
       description: data?.data?.message,
-      action: action,
+      success: hideIcon ? null : true,
+      action,
     });
   };
 
