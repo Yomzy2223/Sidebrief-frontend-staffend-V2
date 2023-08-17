@@ -1,4 +1,3 @@
-// import "../globals.css";
 import type { Metadata } from "next";
 import { BrFirma } from "@/font";
 import Sidebar from "@/components/features/sidebar";
@@ -11,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={BrFirma.className}>
         <div className="flex flex-col h-screen ">
           <MainHeader />
