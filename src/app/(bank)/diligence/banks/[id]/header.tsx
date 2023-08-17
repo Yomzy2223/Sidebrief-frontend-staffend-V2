@@ -1,31 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Back } from "./back";
-import { useEnterprise } from "@/hooks";
+import { useEnterprise, useCheckIsImage } from "@/hooks";
 import Image from "next/image";
-import { checkIsImage } from "@/lib/globalFunctions";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export const BankDetailHeader = ({ id }: { id: string }) => {
-  const [isImage, setIsImage] = useState(false);
-  const [imageChecked, setImageChecked] = useState(false);
-
   const { useViewEnterpriseByIdQuery } = useEnterprise();
   const enterpriseById = useViewEnterpriseByIdQuery(id);
   const selectedEnterprise = enterpriseById.data?.data.data;
 
-  useEffect(() => {
-    const checkIfImage = async () => {
-      if (selectedEnterprise) {
-        const isImage = await checkIsImage(selectedEnterprise?.logo);
-        setIsImage(isImage);
-        setImageChecked(true);
-      }
-    };
+  const imageCheck = useCheckIsImage(selectedEnterprise?.logo);
 
-    checkIfImage();
-  }, [selectedEnterprise]);
+  const imageChecked = imageCheck.isSuccess;
+  const isImage: boolean = imageCheck.data;
 
   return (
     <div>
@@ -51,8 +40,9 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
             </h3>
           </div>
           <div className="flex gap-6">
-            {/* TODO: should navigate to invoice page */}
-            {/* <Button>See invoice</Button> */}
+            <Link href={`/diligence/invoice/${id}`} className={buttonVariants({ size: "max-big" })}>
+              See invoice
+            </Link>
           </div>
         </div>
       </div>

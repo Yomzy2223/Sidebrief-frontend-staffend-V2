@@ -8,7 +8,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,13 @@ export type IdialogProps = {
   footer?: boolean;
 } & (
   | { dialogType: "state"; open: boolean; cancel: () => void; setter?: (a: boolean) => void }
-  | { dialogType: "normal"; triggerText: string; setter?: (a: boolean) => void; open?: boolean }
+  | {
+      dialogType: "normal";
+      triggerText: string;
+      triggerVariant?: VariantProps<typeof buttonVariants>;
+      setter?: (a: boolean) => void;
+      open?: boolean;
+    }
 ) &
   ({ footer: true; actionText: string; action: () => void } | { footer: false | undefined });
 
@@ -34,7 +40,13 @@ export const Dialog = (props: IdialogProps) => {
       {props.dialogType === "normal" && (
         <DialogRoot open={props.open} onOpenChange={props.setter}>
           <DialogTrigger asChild>
-            <Button color={props.brandColor}>{props.triggerText}</Button>
+            <Button
+              color={props.brandColor}
+              variant={props.triggerVariant?.variant}
+              size={props.triggerVariant?.size}
+            >
+              {props.triggerText}
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[554px] p-6" showClose={props.showCloseButton}>
             {(props.description || props.title) && (

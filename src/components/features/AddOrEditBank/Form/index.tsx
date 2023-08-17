@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback, WheelEvent } from "react";
 import { z } from "zod";
 import { formSchema } from "./constants";
@@ -31,6 +32,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/features/fileUpload";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCheckIsImage } from "@/hooks";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -45,6 +47,8 @@ export const AddOrEditBankForm = ({
     | {
         adminEmail: string;
         address: string;
+        color: string;
+        logo: string;
       }
     | false;
 }) => {
@@ -71,6 +75,8 @@ export const AddOrEditBankForm = ({
       // form.setValue("adminName", details.adminName);
       form.setValue("adminEmail", details.adminEmail);
       form.setValue("address", details.address);
+      form.setValue("color", details.color);
+      form.setValue("logo", details.logo);
     }
   }, [banks, form, details]);
 
@@ -109,13 +115,18 @@ export const AddOrEditBankForm = ({
           //TODO: toast should be called here
         },
       });
-      // console.log(values);
-      // form.reset();
-      // cancelModal && cancelModal();
     } else {
       cancelModal && cancelModal();
     }
   }
+
+  let logo = "";
+
+  if (details) {
+    logo = details.logo;
+  }
+
+  const imageCheck = useCheckIsImage(logo);
 
   const LogoCollector = ({ url }: { url: string; name: string; type: string }) => {
     form.setValue("logo", url);
@@ -125,7 +136,7 @@ export const AddOrEditBankForm = ({
     <Form {...form}>
       <div className="flex items-center space-x-2">
         <Switch id="togglebank" checked={isBank} onClick={() => setIsBank((prev) => !prev)} />
-        <Label htmlFor="togglebank">Add Nigerian Bank</Label>
+        <Label htmlFor="togglebank">{isAdd ? "Add" : "Edit"} Nigerian Bank</Label>
       </div>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {isBank ? (
@@ -196,12 +207,17 @@ export const AddOrEditBankForm = ({
           />
         ) : (
           <>
+            {logo && imageCheck.data && (
+              <div className="relative w-[100px] h-[100px] rounded-sm overflow-hidden mx-auto">
+                <Image src={logo} alt={`enterprise-image`} fill />
+              </div>
+            )}
             <FormField
               control={form.control}
               name="logo"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Logo</FormLabel>
+                  <FormLabel>{isAdd ? "Logo" : "Replace Logo"}</FormLabel>
                   <FormControl>
                     <FileUpload collectFile={LogoCollector} />
                   </FormControl>

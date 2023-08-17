@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export const useFileUpload = () => {
@@ -22,4 +22,25 @@ export const useFileUpload = () => {
   });
 
   return { ...mutation, uploadProgress };
+};
+
+export const useCheckIsImage = (url?: string) => {
+  return useQuery(
+    ["checkIsImage", url],
+    async () => {
+      try {
+        if (!url) throw new Error("No url specified");
+
+        const response = await axios.get(url, { responseType: "arraybuffer" });
+        const contentType = response.headers["content-type"];
+        return contentType.startsWith("image/");
+      } catch (error: any) {
+        console.error("Error:", error.message);
+        return false;
+      }
+    },
+    {
+      enabled: !!url,
+    }
+  );
 };
