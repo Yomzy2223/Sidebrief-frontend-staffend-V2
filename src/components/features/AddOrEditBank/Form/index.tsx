@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, WheelEvent } from "react";
+import { useState, useEffect, useCallback, WheelEvent } from "react";
 import { z } from "zod";
 import { formSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,6 +30,7 @@ import { useEnterprise } from "@/hooks/useEnterprise";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/features/fileUpload";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -51,6 +52,7 @@ export const AddOrEditBankForm = ({
   const [isBank, setIsBank] = useState(false);
   const { useCreateEnterpriseMutation } = useEnterprise();
   const createEnterprise = useCreateEnterpriseMutation();
+  const queryclient = useQueryClient();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -98,6 +100,7 @@ export const AddOrEditBankForm = ({
       };
       createEnterprise.mutate(requiredData, {
         onSuccess: (data) => {
+          queryclient.invalidateQueries({ queryKey: ["All Enterprise"] });
           form.reset();
           cancelModal && cancelModal();
           //TODO: toast should be called here

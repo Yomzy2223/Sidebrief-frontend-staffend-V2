@@ -19,7 +19,6 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
     const checkIfImage = async () => {
       if (selectedEnterprise) {
         const isImage = await checkIsImage(selectedEnterprise?.logo);
-        console.log(isImage);
         setIsImage(isImage);
         setImageChecked(true);
       }
