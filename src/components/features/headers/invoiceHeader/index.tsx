@@ -50,14 +50,14 @@ export const InvoiceHeader = ({
               placeholder="Select month"
               defaultValue={currMonth}
               handleSelect={handleMonthSelect}
-              valueLabel="Month: "
+              // valueLabel="Month: "
             />
             <CMSelect
               options={allYears}
               placeholder="Select year"
               defaultValue={currYear}
               handleSelect={handleYearSelect}
-              valueLabel="Year: "
+              // valueLabel="Year: "
             />
           </div>
         </div>
