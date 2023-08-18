@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
 import { AddOrEditBank } from "../AddOrEditBank";
 
 interface BankInfoProps {
@@ -47,14 +45,9 @@ export const BankSettingInfo = ({
               address={address}
               triggerText="Edit"
               bankId={id}
+              logo={image}
+              color={brandColor || ""}
             />
-            {/* <Button
-							variant={"outline"}
-							color={brandColor}
-							className="mt-auto"
-						>
-							Edit
-						</Button> */}
           </div>
         </div>
       </div>

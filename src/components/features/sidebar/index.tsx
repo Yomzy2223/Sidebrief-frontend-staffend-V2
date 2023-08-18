@@ -35,12 +35,12 @@ const Sidebar = () => {
     >
       <Button
         variant="ghost"
-        className="justify-start max-w-max mx-3 px-0 py-0 min-w-max h-max "
+        className="justify-start px-0 py-0 mx-3 max-w-max min-w-max h-max "
         onClick={() => setOpen(!open)}
       >
         <MenuIcon />
       </Button>
-      <div className="flex flex-col flex-1 justify-between text-sm ">
+      <div className="flex flex-col justify-between flex-1 text-sm ">
         <div className="flex flex-col gap-2 overflow-x-hidden ">
           {sidebarItems.map((item, i) => {
             const active = i === 0 ? pathname === "/" : pathname?.startsWith(item.href);
@@ -74,7 +74,7 @@ const Sidebar = () => {
             );
           })}
         </div>
-        <Button variant="ghost" onClick={handleLogout} className="w-full justify-start">
+        <Button variant="ghost2" onClick={handleLogout} className="w-full justify-start">
           <div className="flex items-center gap-2 ">
             <LogoutIcon />
             {open && <p className="text-destructive">Logout</p>}
@@ -90,7 +90,7 @@ export default Sidebar;
 //
 const sidebarItems = [
   { href: "/", text: "Home", icon: HomeIcon },
-  { href: "/diligence", text: "Diligence", icon: DetailsIcon },
+  { href: "/diligence/enterprises", text: "Diligence", icon: DetailsIcon },
   { href: "/settings", text: "Settings", icon: SettingsIcon },
 ];
 

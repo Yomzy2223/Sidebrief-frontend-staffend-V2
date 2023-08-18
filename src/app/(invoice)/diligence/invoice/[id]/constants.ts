@@ -1,4 +1,12 @@
-export const headers = ["S/N", "Business Name", "Business Number", "Uploaded By", "Date & Time"];
+export const headers = [
+  "S/N",
+  "Business Name",
+  "Business Number",
+  "Request type",
+  "Amount",
+  "Uploaded By",
+  "Date & Time",
+];
 const bodyFullData = [
   {
     name: "Omolara Oil & Gas",
