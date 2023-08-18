@@ -13,8 +13,8 @@ const BankHeader = () => {
       <p className="text-2xl not-italic font-semibold leading-[130%] text-gray-900">
         Diligence Registration(s)
       </p>
-      <div className="max-w-[150px] w-full">
-        <AddOrEditBank triggerText="Add New Bank" variant="add" banks={banks || []} />
+      <div className="">
+        <AddOrEditBank triggerText="Add New Enterprise" variant="add" banks={banks || []} />
       </div>
     </div>
   );

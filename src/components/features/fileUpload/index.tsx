@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { ProgressBar } from "./progressBar";
-import { useFileUpload } from "@/hooks/useFileUpload";
+import { useFileUpload } from "@/hooks/utilityHooks";
 import { cn } from "@/lib/utils";
 
 export const FileUpload = ({
