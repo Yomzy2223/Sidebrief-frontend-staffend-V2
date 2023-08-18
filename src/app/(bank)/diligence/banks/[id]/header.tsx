@@ -5,6 +5,7 @@ import { useEnterprise, useCheckIsImage } from "@/hooks";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import EmptyImage from "@/assets/images/emptyImage.png";
 
 export const BankDetailHeader = ({ id }: { id: string }) => {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
@@ -12,8 +13,6 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
   const selectedEnterprise = enterpriseById.data?.data.data;
 
   const imageCheck = useCheckIsImage(selectedEnterprise?.logo);
-
-  const imageChecked = imageCheck.isSuccess;
   const isImage: boolean = imageCheck.data;
 
   return (
@@ -24,13 +23,7 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
           <div className="flex items-center gap-4">
             <div className="relative w-[71px] h-[71px] rounded-sm overflow-hidden">
               <Image
-                src={
-                  !imageChecked
-                    ? ""
-                    : isImage
-                    ? selectedEnterprise?.logo || ""
-                    : "https://pixabay.com/get/g2cea5168d86f14a8bf1098146976727014f3447d841bfe53f29569743393808e2a2121aea7c81082693d95ffa0aa160a_1280.png"
-                }
+                src={isImage ? selectedEnterprise?.logo || EmptyImage : EmptyImage}
                 alt={`enterprise-image`}
                 fill
               />

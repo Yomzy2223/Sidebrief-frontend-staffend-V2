@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import InvoiceHeadImage from "@/assets/images/invoice-header-background.png";
 import { useCheckIsImage } from "@/hooks";
 import { format, parseJSON } from "date-fns";
+import EmptyImage from "@/assets/images/emptyImage.png";
 
 export const InvoiceHeader = ({
   logo,
@@ -35,7 +36,6 @@ export const InvoiceHeader = ({
 
   const imageCheck = useCheckIsImage(logo);
 
-  const imageChecked = imageCheck.isSuccess;
   const isImage: boolean = imageCheck.data;
 
   return (
@@ -63,13 +63,7 @@ export const InvoiceHeader = ({
         </div>
         <div className="flex gap-4 ">
           <Image
-            src={
-              !imageChecked
-                ? ""
-                : isImage
-                ? logo || ""
-                : "https://pixabay.com/get/g2cea5168d86f14a8bf1098146976727014f3447d841bfe53f29569743393808e2a2121aea7c81082693d95ffa0aa160a_1280.png"
-            }
+            src={isImage ? logo || EmptyImage : EmptyImage}
             alt=""
             width={64}
             height={64}

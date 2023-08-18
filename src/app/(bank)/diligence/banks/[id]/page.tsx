@@ -8,6 +8,7 @@ import numeral from "numeral";
 import { format, parseJSON } from "date-fns";
 import { IDiligenceManager, IRequest } from "@/types/returns";
 import { useCheckIsImage } from "@/hooks";
+import EmptyImage from "@/assets/images/emptyImage.png";
 
 export default function BankDetail({ params }: { params: { id: string } }) {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
@@ -38,13 +39,7 @@ export default function BankDetail({ params }: { params: { id: string } }) {
         name={selectedEnterprise?.name || "--"}
         address={selectedEnterprise?.address || "--"}
         adminEmail={selectedEnterprise?.adminEmail || "--"}
-        image={
-          !imageChecked
-            ? ""
-            : isImage
-            ? selectedEnterprise?.logo || ""
-            : "https://pixabay.com/get/g2cea5168d86f14a8bf1098146976727014f3447d841bfe53f29569743393808e2a2121aea7c81082693d95ffa0aa160a_1280.png"
-        }
+        image={isImage ? selectedEnterprise?.logo || EmptyImage : EmptyImage}
         id={selectedEnterprise?.id as string}
         brandColor={selectedEnterprise?.color || ""}
       />
