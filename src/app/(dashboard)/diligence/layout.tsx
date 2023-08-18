@@ -35,8 +35,8 @@ const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex w-full pl-10 pr-6 h-16 border-b border-[#EDF1F6] items-center justify-between">
         <div className="flex items-center gap-8">
           <ActiveNav
-            title="Banks"
-            path="/diligence/banks"
+            title="Enterprises"
+            path="/diligence/enterprises"
             length={allEnterprise.isSuccess ? allEnterprise.data.data.data.length : 0}
           />
           <ActiveNav

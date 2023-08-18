@@ -15,6 +15,8 @@ type addEditBankProps = {
       adminEmail: string;
       address: string;
       bankId: string;
+      color: string;
+      logo: string;
     }
   | { variant: "add"; banks: IBank[] }
 );
@@ -30,6 +32,9 @@ export const AddOrEditBank = (props: addEditBankProps) => {
       title={props.variant === "edit" ? props.bankname : "Add new Enterprise"}
       open={open}
       setter={(a: boolean) => setOpen(a)}
+      triggerVariant={{
+        size: "max-big",
+      }}
     >
       <AddOrEditBankForm
         isAdd={props.variant === "add"}
@@ -53,6 +58,8 @@ export const AddOrEditBank = (props: addEditBankProps) => {
           props.variant === "edit" && {
             adminEmail: props.adminEmail,
             address: props.address,
+            color: props.color,
+            logo: props.logo,
           }
         }
       />

@@ -3,6 +3,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRequest } from "@/hooks/useRequest";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +31,7 @@ interface requestVerifyFormProps {
 export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormProps) => {
   const { useSubmitRequestDocument } = useRequest();
   const submitRequestDocument = useSubmitRequestDocument();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof requestVerifySchema>>({
     resolver: zodResolver(requestVerifySchema),
@@ -46,7 +48,7 @@ export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormPr
       { requestId, formInfo: values },
       {
         onSuccess: (data) => {
-          console.log(data);
+          queryClient.invalidateQueries({ queryKey: ["All Request"] });
           form.reset();
           closeModal();
         },
