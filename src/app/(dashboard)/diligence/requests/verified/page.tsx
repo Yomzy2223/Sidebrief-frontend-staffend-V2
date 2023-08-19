@@ -1,17 +1,14 @@
 "use client";
+
 import CMTable from "@/components/features/cmTable";
-import React, { useState } from "react";
+import React from "react";
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
 import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
-import { Dialog } from "@/components/customdialog";
-import { RequestVerifyForm } from "@/components/features/fileUpload/requestVerifyForm";
+import { VerifiedDialog } from "../action";
 
 const Verified = () => {
-  const [showUploadModal, setShowUploadModal] = useState(false);
-  const [requestId, setRequestId] = useState("");
-
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
@@ -36,57 +33,16 @@ const Verified = () => {
       request?.createdBy,
       format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
       getTimeInfo(request.updatedAt),
-      "Upload",
+      <VerifiedDialog key={request.id} requestId={request.id} />,
     ]);
-
-  const handleCellClick: (
-    cellData?:
-      | string
-      | number
-      | {
-          imageLink: string;
-          bankName: string;
-        }
-      | undefined,
-    rowIndex?: number | undefined,
-    columnIndex?: number | undefined
-  ) => void = (cellData, rowIndex, columnIndex) => {
-    if (cellData === "Upload") {
-      setShowUploadModal(true);
-      if (verified) {
-        const id = verified[rowIndex as number].id;
-        setRequestId(id);
-      }
-    }
-  };
-
-  const cancelDialog = () => {
-    setShowUploadModal(false);
-  };
 
   return (
     <>
       {allRequest.isLoading ? (
         <div>Loading...</div>
       ) : (
-        <CMTable
-          header={headers}
-          body={bodyData}
-          lastColumnCursor
-          link
-          onCellClick={handleCellClick}
-        />
+        <CMTable header={headers} body={bodyData} lastColumnCursor />
       )}
-      <Dialog
-        dialogType="state"
-        open={showUploadModal}
-        cancel={cancelDialog}
-        footer={false}
-        title={"Upload document"}
-        showCloseButton={false}
-      >
-        <RequestVerifyForm requestId={requestId} closeModal={cancelDialog} />
-      </Dialog>
     </>
   );
 };

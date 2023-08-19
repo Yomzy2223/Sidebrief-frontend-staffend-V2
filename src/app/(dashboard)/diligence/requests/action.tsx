@@ -24,7 +24,7 @@ export const ActionButton = ({
   }
 };
 
-const CompletedDialog = ({ requestId }: { requestId: string }) => {
+export const CompletedDialog = ({ requestId }: { requestId: string }) => {
   const [open, setOpen] = useState(false);
 
   const { useLazyGetRequestDocumentQuery } = useRequest();
@@ -72,7 +72,7 @@ const CompletedDialog = ({ requestId }: { requestId: string }) => {
   );
 };
 
-const VerifiedDialog = ({ requestId }: { requestId: string }) => {
+export const VerifiedDialog = ({ requestId }: { requestId: string }) => {
   const [open, setOpen] = useState(false);
 
   const cancelDialog = () => {
