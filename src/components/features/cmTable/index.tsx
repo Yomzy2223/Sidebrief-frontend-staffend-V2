@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import Image from "next/image";
 
 interface TableProps {
   header: string[];
-  body: (string | number | { imageLink: string; bankName: string })[][];
+  body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
   link?: boolean;
 
   lastColumnCursor?: boolean;
