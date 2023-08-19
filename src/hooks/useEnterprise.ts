@@ -25,17 +25,18 @@ export const useEnterprise = () => {
       retry: 3,
     });
 
-  const updateEnterpriseMutation = useMutation({
-    mutationFn: updateEnterprise,
-    onError(error, variables, context) {
-      handleError(error);
-    },
-    onSuccess(data, variables, context) {
-      console.log(data);
-      handleSuccess(data);
-    },
-    retry: 3,
-  });
+  const useUpdateEnterpriseMutation = () =>
+    useMutation({
+      mutationFn: updateEnterprise,
+      onError(error, variables, context) {
+        handleError(error);
+      },
+      onSuccess(data, variables, context) {
+        console.log(data);
+        handleSuccess(data);
+      },
+      retry: 3,
+    });
 
   const deleteEnterpriseMutation = useMutation({
     mutationFn: deleteEnterprise,
@@ -76,7 +77,7 @@ export const useEnterprise = () => {
   return {
     useCreateEnterpriseMutation,
     // createEnterprise: useCreateEnterpriseMutation.mutate,
-    updateEnterpriseMutation,
+    useUpdateEnterpriseMutation,
     // updateEnterprise: updateEnterpriseMutation.mutate,
     deleteEnterpriseMutation,
     // deleteEnterprise: deleteEnterpriseMutation.mutate,

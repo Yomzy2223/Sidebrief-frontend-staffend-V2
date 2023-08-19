@@ -1,6 +1,6 @@
 "use client";
 import CMTable from "@/components/features/cmTable";
-import React, { useState } from "react";
+import React from "react";
 
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
@@ -9,14 +9,9 @@ import { getTimeInfo } from "@/lib/globalFunctions";
 import { CompletedDialog } from "../action";
 
 const Completed = () => {
-  const [showResult, setShowResult] = useState(false);
-  const [requestId, setRequestId] = useState("");
-
-  const { useViewAllRequestQuery, useLazyGetRequestDocumentQuery } = useRequest();
+  const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
-  const requestDocument = useLazyGetRequestDocumentQuery(requestId);
-  const documents = requestDocument.data?.data.data;
 
   const completed = allRequestData?.filter((el) => el?.status === "Completed") || [];
   const headers = [
