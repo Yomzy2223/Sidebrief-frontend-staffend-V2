@@ -33,7 +33,7 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
             </h3>
           </div>
           <div className="flex gap-6">
-            <Link href={`/diligence/invoice/${id}`} className={buttonVariants({ size: "max-big" })}>
+            <Link href={`/diligence/invoice/${id}`} className={buttonVariants({ size: "lg" })}>
               See invoice
             </Link>
           </div>

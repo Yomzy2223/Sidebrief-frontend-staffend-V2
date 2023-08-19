@@ -32,9 +32,16 @@ export const AddOrEditBank = (props: addEditBankProps) => {
       title={props.variant === "edit" ? props.bankname : "Add new Enterprise"}
       open={open}
       setter={(a: boolean) => setOpen(a)}
-      triggerVariant={{
-        size: "max-big",
-      }}
+      triggerVariant={
+        props.variant === "add"
+          ? {
+              size: "lg",
+            }
+          : {
+              variant: "outline-primary",
+              size: "lg",
+            }
+      }
     >
       <AddOrEditBankForm
         isAdd={props.variant === "add"}
