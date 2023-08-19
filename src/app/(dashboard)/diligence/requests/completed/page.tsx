@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
-import { format, parseJSON } from "date-fns";
+import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { Dialog } from "@/components/customdialog";
 import { FileDisplay } from "@/components/customdialog/fileDisplay";
@@ -19,7 +19,7 @@ const Completed = () => {
   const requestDocument = useLazyGetRequestDocumentQuery(requestId);
   const documents = requestDocument.data?.data.data;
 
-  const completed = allRequestData?.filter((el) => el?.status === "Completed");
+  const completed = allRequestData?.filter((el) => el?.status === "Completed") || [];
   const headers = [
     "S/N",
     "Business name",
@@ -30,15 +30,17 @@ const Completed = () => {
     "Action",
   ];
 
-  const bodyData = completed?.map((request, index) => [
-    numeral(index + 1).format("00"),
-    request?.name,
-    request?.registrationNumber,
-    request?.createdBy,
-    format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
-    getTimeInfo(request.updatedAt),
-    "See result",
-  ]);
+  const bodyData = completed
+    .sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
+    .map((request, index) => [
+      numeral(index + 1).format("00"),
+      request?.name,
+      request?.registrationNumber,
+      request?.createdBy,
+      format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
+      getTimeInfo(request.updatedAt),
+      "See result",
+    ]);
 
   const handleCellClick: (
     cellData?:

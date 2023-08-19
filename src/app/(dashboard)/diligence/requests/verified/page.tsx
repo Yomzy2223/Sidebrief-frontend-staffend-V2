@@ -3,7 +3,7 @@ import CMTable from "@/components/features/cmTable";
 import React, { useState } from "react";
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
-import { format, parseJSON } from "date-fns";
+import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { Dialog } from "@/components/customdialog";
 import { RequestVerifyForm } from "@/components/features/fileUpload/requestVerifyForm";
@@ -16,7 +16,7 @@ const Verified = () => {
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
 
-  const verified = allRequestData?.filter((el) => el?.status === "Verified");
+  const verified = allRequestData?.filter((el) => el?.status === "Verified") || [];
   const headers = [
     "S/N",
     "Business name",
@@ -27,15 +27,17 @@ const Verified = () => {
     "Action",
   ];
 
-  const bodyData = verified?.map((request, index) => [
-    numeral(index + 1).format("00"),
-    request?.name,
-    request?.registrationNumber,
-    request?.createdBy,
-    format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
-    getTimeInfo(request.updatedAt),
-    "Upload",
-  ]);
+  const bodyData = verified
+    .sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
+    .map((request, index) => [
+      numeral(index + 1).format("00"),
+      request?.name,
+      request?.registrationNumber,
+      request?.createdBy,
+      format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
+      getTimeInfo(request.updatedAt),
+      "Upload",
+    ]);
 
   const handleCellClick: (
     cellData?:

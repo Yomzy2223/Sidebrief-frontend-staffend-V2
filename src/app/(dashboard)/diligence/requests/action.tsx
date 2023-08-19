@@ -86,7 +86,7 @@ const VerifiedDialog = ({ requestId }: { requestId: string }) => {
       setter={setOpen}
       footer={false}
       title={"Upload document"}
-      showCloseButton={false}
+      showCloseButton={true}
       triggerText="Upload"
       triggerVariant={{
         variant: "link",
