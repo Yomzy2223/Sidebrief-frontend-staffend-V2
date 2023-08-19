@@ -27,7 +27,7 @@ export default function InvoicePage({ params }: { params: { id: string } }) {
         <div className="flex items-center justify-between w-full mb-6">
           <h3 className="text-2xl font-semibold leading-normal">Diligence Registrations</h3>
           <div className="flex gap-6">
-            <Button variant={"outline-primary"} className="">
+            <Button variant={"outline-secondary"} className="">
               Download Invoice
             </Button>
             <Button>Send to Enterprise</Button>
