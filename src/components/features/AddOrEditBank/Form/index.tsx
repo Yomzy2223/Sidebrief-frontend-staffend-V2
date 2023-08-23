@@ -294,12 +294,12 @@ export const AddOrEditBankForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          {createEnterprise.isLoading || updateEnterprise.isLoading
-            ? "Loading..."
-            : isAdd
-            ? "Add"
-            : "Done"}
+        <Button
+          type="submit"
+          className="w-full"
+          loading={createEnterprise.isLoading || updateEnterprise.isLoading}
+        >
+          {isAdd ? "Add" : "Done"}
         </Button>
       </form>
     </Form>
