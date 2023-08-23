@@ -8,8 +8,8 @@ export const Status = ({
   return (
     <div
       className={cn("w-fit p-2 rounded", {
-        "text-[#D400CC] bg-[#D400CC]/10":
-          status === "Verified" || status === "Unverified" || status === "In progress",
+        "text-[#D400CC] bg-[#D400CC]/10": status === "Unverified" || status === "In progress",
+        "text-[#E5A100] bg-[#E5A100]/10": status === "Verified",
         "text-[#00D448] bg-[#00D448]/10": status === "Completed",
       })}
     >

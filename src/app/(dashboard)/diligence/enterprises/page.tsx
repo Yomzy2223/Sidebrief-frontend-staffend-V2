@@ -5,7 +5,7 @@ import React from "react";
 import { headers } from "./constant";
 import { useEnterprise, useRequest } from "@/hooks";
 import numeral from "numeral";
-import { format, parseJSON } from "date-fns";
+import { format, parseJSON, compareDesc } from "date-fns";
 import { useRouter } from "next/navigation";
 
 const Banks = () => {
@@ -35,17 +35,19 @@ const Banks = () => {
         <CMTable
           header={headers}
           // ['S/N', 'Onboarded Banks', 'Requests','Branches', 'Date', 'Registration URl',]
-          body={allEnterprise.data.data.data?.map((enterprise, index) => [
-            numeral(index + 1).format("00"),
-            // {
-            // 	imageLink: enterprise.logo,
-            // 	bankName: enterprise.name,
-            // },
-            enterprise.name,
-            enterprise.diligenceRequest.length,
-            enterprise.diligenceManager.length,
-            format(parseJSON(enterprise.createdAt), "dd/MM/yyyy"),
-          ])}
+          body={allEnterprise.data.data.data
+            ?.sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
+            .map((enterprise, index) => [
+              numeral(index + 1).format("00"),
+              // {
+              // 	imageLink: enterprise.logo,
+              // 	bankName: enterprise.name,
+              // },
+              enterprise.name,
+              enterprise.diligenceRequest.length,
+              enterprise.diligenceManager.length,
+              format(parseJSON(enterprise.createdAt), "dd/MM/yyyy"),
+            ])}
           lastColumnCursor
           onRowClick={onRowClick}
         />

@@ -33,6 +33,7 @@ import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/features/fileUpload";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCheckIsImage } from "@/hooks";
+import { useResponse } from "@/hooks/useResponse";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -58,6 +59,7 @@ export const AddOrEditBankForm = ({
   const createEnterprise = useCreateEnterpriseMutation();
   const updateEnterprise = useUpdateEnterpriseMutation();
   const queryclient = useQueryClient();
+  const { handleError, handleSuccess } = useResponse();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -109,10 +111,6 @@ export const AddOrEditBankForm = ({
           queryclient.invalidateQueries({ queryKey: ["All Enterprise"] });
           form.reset();
           cancelModal && cancelModal();
-          //TODO: toast should be called here
-        },
-        onError: (err) => {
-          //TODO: toast should be called here
         },
       });
     } else {
@@ -129,7 +127,6 @@ export const AddOrEditBankForm = ({
         onSuccess: (data) => {
           queryclient.invalidateQueries({ queryKey: ["Single Enterprise By Id", id] });
           cancelModal && cancelModal();
-          //TODO: toast should be called here
         },
       });
     }
@@ -294,12 +291,12 @@ export const AddOrEditBankForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          {createEnterprise.isLoading || updateEnterprise.isLoading
-            ? "Loading..."
-            : isAdd
-            ? "Add"
-            : "Done"}
+        <Button
+          type="submit"
+          className="w-full"
+          loading={createEnterprise.isLoading || updateEnterprise.isLoading}
+        >
+          {isAdd ? "Add" : "Done"}
         </Button>
       </form>
     </Form>
