@@ -8,26 +8,38 @@ import { ProgressBar } from "./progressBar";
 import { useFileUpload } from "@/hooks/utilityHooks";
 import { cn } from "@/lib/utils";
 
-export const FileUpload = ({
-  collectFile,
-}: {
-  collectFile: ({}: { url: string; name: string; type: string }) => void;
-}) => {
+type fileUploadType = {
+  uploadType?: "upload" | "submit";
+} & (
+  | { uploadType: "submit"; submitFile: (file: File) => void }
+  | {
+      uploadType?: "upload";
+      collectFile: ({}: { url: string; name: string; type: string }) => void;
+    }
+);
+
+export const FileUpload = (props: fileUploadType) => {
   const [file, setFile] = useState<File>();
   const { mutate: uploadFile, uploadProgress } = useFileUpload();
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setFile(acceptedFiles[0]);
-      uploadFile(acceptedFiles[0], {
-        onSuccess: (data) => {
-          console.log(data);
-          const file = data.data;
-          collectFile({ url: file.url, name: file.original_filename, type: file.format });
-        },
-      });
+      if (props.uploadType === "upload" || props.uploadType === undefined) {
+        // Upload file and return URL
+        uploadFile(acceptedFiles[0], {
+          onSuccess: (data) => {
+            const file = data.data;
+            props.collectFile({ url: file.url, name: file.original_filename, type: file.format });
+          },
+        });
+      }
+      if (props.uploadType === "submit") {
+        // will pass the raw File
+        props.submitFile(acceptedFiles[0]);
+      }
     },
-    [uploadFile, collectFile]
+    [uploadFile, props]
   );
   const { getRootProps, getInputProps } = useDropzone({ onDrop, noClick: !!file });
 
