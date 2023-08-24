@@ -20,7 +20,7 @@ const requestVerifySchema = z.object({
   name: z.string().nonempty("you need to upload a file"),
   link: z.string().nonempty("you need to upload a file"),
   type: z.string().nonempty("you need to upload a file"),
-  description: z.string().nonempty("Please enter a note description"),
+  description: z.string(),
 });
 
 interface requestVerifyFormProps {
