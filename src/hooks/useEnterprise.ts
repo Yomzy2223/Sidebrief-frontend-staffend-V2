@@ -7,46 +7,45 @@ import {
   viewAllEnterprise,
   getNigerianbanks,
 } from "@/api/enterpriseApi";
-import { handleError, handleSuccess } from "@/lib/globalFunctions";
+// import { handleError, handleSuccess } from "@/lib/globalFunctions";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useResponse } from "@/hooks/useResponse";
 
 export const useEnterprise = () => {
+  const { handleError, handleSuccess } = useResponse();
+
   const useCreateEnterpriseMutation = () =>
     useMutation({
       mutationFn: createEnterprise,
       onError(error, variables, context) {
-        handleError(error);
+        handleError({ title: "Create enterprise failed", error });
       },
       onSuccess(data, variables, context) {
-        handleSuccess(data);
-        // invalid;
+        handleSuccess({ data });
       },
-      retry: 3,
     });
 
-  const updateEnterpriseMutation = useMutation({
-    mutationFn: updateEnterprise,
-    onError(error, variables, context) {
-      handleError(error);
-    },
-    onSuccess(data, variables, context) {
-      console.log(data);
-      handleSuccess(data);
-    },
-    retry: 3,
-  });
+  const useUpdateEnterpriseMutation = () =>
+    useMutation({
+      mutationFn: updateEnterprise,
+      onError(error, variables, context) {
+        handleError({ title: "Update enterprise failed", error });
+      },
+      onSuccess(data, variables, context) {
+        console.log(data);
+        handleSuccess({ data });
+      },
+    });
 
   const deleteEnterpriseMutation = useMutation({
     mutationFn: deleteEnterprise,
     onError(error, variables, context) {
-      handleError(error);
+      handleError({ title: "Delete enterprise failed", error });
     },
     onSuccess(data, variables, context) {
       console.log(data);
-      handleSuccess(data);
+      handleSuccess({ data });
     },
-    retry: 3,
   });
 
   const useViewEnterpriseByEmailQuery = (adminEmail: string) =>
@@ -76,7 +75,7 @@ export const useEnterprise = () => {
   return {
     useCreateEnterpriseMutation,
     // createEnterprise: useCreateEnterpriseMutation.mutate,
-    updateEnterpriseMutation,
+    useUpdateEnterpriseMutation,
     // updateEnterprise: updateEnterpriseMutation.mutate,
     deleteEnterpriseMutation,
     // deleteEnterprise: deleteEnterpriseMutation.mutate,

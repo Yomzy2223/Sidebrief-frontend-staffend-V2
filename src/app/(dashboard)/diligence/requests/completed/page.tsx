@@ -1,25 +1,19 @@
 "use client";
 import CMTable from "@/components/features/cmTable";
-import React, { useState } from "react";
+import React from "react";
 
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
-import { format, parseJSON } from "date-fns";
+import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
-import { Dialog } from "@/components/customdialog";
-import { FileDisplay } from "@/components/customdialog/fileDisplay";
+import { CompletedDialog } from "../action";
 
 const Completed = () => {
-  const [showResult, setShowResult] = useState(false);
-  const [requestId, setRequestId] = useState("");
-
-  const { useViewAllRequestQuery, useLazyGetRequestDocumentQuery } = useRequest();
+  const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
-  const requestDocument = useLazyGetRequestDocumentQuery(requestId);
-  const documents = requestDocument.data?.data.data;
 
-  const completed = allRequestData?.filter((el) => el?.status === "Completed");
+  const completed = allRequestData?.filter((el) => el?.status === "Completed") || [];
   const headers = [
     "S/N",
     "Business name",
@@ -30,81 +24,25 @@ const Completed = () => {
     "Action",
   ];
 
-  const bodyData = completed?.map((request, index) => [
-    numeral(index + 1).format("00"),
-    request?.name,
-    request?.registrationNumber,
-    request?.createdBy,
-    format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
-    getTimeInfo(request.updatedAt),
-    "See result",
-  ]);
-
-  const handleCellClick: (
-    cellData?:
-      | string
-      | number
-      | {
-          imageLink: string;
-          bankName: string;
-        }
-      | undefined,
-    rowIndex?: number | undefined,
-    columnIndex?: number | undefined
-  ) => void = (cellData, rowIndex, columnIndex) => {
-    if (cellData === "See result") {
-      setShowResult(true);
-      if (completed) {
-        const id = completed[rowIndex as number].id;
-        setRequestId(id);
-      }
-    }
-  };
-
-  const cancelResultModal = () => {
-    setShowResult(false);
-  };
-
-  const doneAction = () => {
-    cancelResultModal();
-  };
+  const bodyData = completed
+    .sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
+    .map((request, index) => [
+      numeral(index + 1).format("00"),
+      request?.name,
+      request?.registrationNumber,
+      request?.createdBy,
+      format(parseJSON(request.updatedAt), "dd/MM/yyyy"),
+      getTimeInfo(request.updatedAt),
+      <CompletedDialog key={request.id} requestId={request.id} />,
+    ]);
 
   return (
     <>
       {allRequest.isLoading ? (
         <div>Loading...</div>
       ) : (
-        <CMTable
-          header={headers}
-          body={bodyData}
-          lastColumnCursor
-          link
-          onCellClick={handleCellClick}
-        />
+        <CMTable header={headers} body={bodyData} lastColumnCursor />
       )}
-      <Dialog
-        dialogType="state"
-        actionText="Done"
-        open={showResult}
-        cancel={cancelResultModal}
-        footer={true}
-        title={
-          requestDocument.isLoading && !requestDocument.isSuccess
-            ? "Loading..."
-            : "Verification Successful"
-        }
-        action={doneAction}
-      >
-        {documents && (
-          <FileDisplay
-            fileName={documents[0].name}
-            type={documents[0].type}
-            link={documents[0].link}
-            date={documents[0].createdAt}
-            description={documents[0].description}
-          />
-        )}
-      </Dialog>
     </>
   );
 };

@@ -9,7 +9,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +28,7 @@ export type IdialogProps = {
       dialogType: "normal";
       triggerText: string;
       triggerVariant?: VariantProps<typeof buttonVariants>;
+      triggerClassName?: HTMLAttributes<HTMLButtonElement>["className"];
       setter?: (a: boolean) => void;
       open?: boolean;
     }
@@ -44,6 +45,7 @@ export const Dialog = (props: IdialogProps) => {
               color={props.brandColor}
               variant={props.triggerVariant?.variant}
               size={props.triggerVariant?.size}
+              className={props.triggerClassName}
             >
               {props.triggerText}
             </Button>

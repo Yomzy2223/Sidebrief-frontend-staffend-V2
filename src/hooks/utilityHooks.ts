@@ -6,7 +6,7 @@ export const useFileUpload = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
 
   const mutation = useMutation((file: File) => {
-    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`; // replace with your upload url
+    const url = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`;
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`);

@@ -33,6 +33,7 @@ import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/features/fileUpload";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCheckIsImage } from "@/hooks";
+import { useResponse } from "@/hooks/useResponse";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -54,9 +55,11 @@ export const AddOrEditBankForm = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [isBank, setIsBank] = useState(false);
-  const { useCreateEnterpriseMutation } = useEnterprise();
+  const { useCreateEnterpriseMutation, useUpdateEnterpriseMutation } = useEnterprise();
   const createEnterprise = useCreateEnterpriseMutation();
+  const updateEnterprise = useUpdateEnterpriseMutation();
   const queryclient = useQueryClient();
+  const { handleError, handleSuccess } = useResponse();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -95,7 +98,6 @@ export const AddOrEditBankForm = ({
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // const selectedBank = banks.find((bank) => bank.name.toLowerCase() === values.name)!;
     if (isAdd) {
       const requiredData = {
         name: values.name,
@@ -109,14 +111,24 @@ export const AddOrEditBankForm = ({
           queryclient.invalidateQueries({ queryKey: ["All Enterprise"] });
           form.reset();
           cancelModal && cancelModal();
-          //TODO: toast should be called here
-        },
-        onError: (err) => {
-          //TODO: toast should be called here
         },
       });
     } else {
-      cancelModal && cancelModal();
+      const id = banks[0].id;
+      const requiredData = {
+        name: values.name,
+        address: values.address,
+        adminEmail: values.adminEmail,
+        logo: values.logo,
+        color: values.color,
+        enterpriseId: id,
+      };
+      updateEnterprise.mutate(requiredData, {
+        onSuccess: (data) => {
+          queryclient.invalidateQueries({ queryKey: ["Single Enterprise By Id", id] });
+          cancelModal && cancelModal();
+        },
+      });
     }
   }
 
@@ -279,8 +291,12 @@ export const AddOrEditBankForm = ({
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          {createEnterprise.isLoading ? "Loading..." : isAdd ? "Add" : "Done"}
+        <Button
+          type="submit"
+          className="w-full"
+          loading={createEnterprise.isLoading || updateEnterprise.isLoading}
+        >
+          {isAdd ? "Add" : "Done"}
         </Button>
       </form>
     </Form>
