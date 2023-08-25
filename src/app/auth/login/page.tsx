@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/images/sidebrief-logo.png";
 import InputWithLabel from "@/components/inputs/inputWithLabel";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const { signIn, signInMutation, forgotPassword } = useAuth();
