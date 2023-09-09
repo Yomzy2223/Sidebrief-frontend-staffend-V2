@@ -8,7 +8,7 @@ import numeral from "numeral";
 import { format, parseJSON, compareDesc } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useDiligence } from "@/context/diligence";
-
+import { EmptyList } from "@/components/features/emptyList";
 const Banks = () => {
   const router = useRouter();
 
@@ -42,9 +42,7 @@ const Banks = () => {
 
   return (
     <div>
-      {allEnterprise.isLoading || allRequest.isLoading ? (
-        <div>Loading...</div>
-      ) : allEnterprise.isSuccess && allRequest.isSuccess ? (
+      {allEnterprise.isSuccess && allRequest.isSuccess ? (
         <CMTable
           header={headers}
           // ['S/N', 'Onboarded Banks', 'Requests','Branches', 'Date', 'Registration URl',]
@@ -67,7 +65,9 @@ const Banks = () => {
           onRowClick={onRowClick}
         />
       ) : (
-        <div>There was an error</div>
+        <div className="flex justify-center mt-12">
+          <EmptyList />
+      </div>
       )}
     </div>
   );

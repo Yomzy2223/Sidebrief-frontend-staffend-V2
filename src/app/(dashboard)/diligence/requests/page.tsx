@@ -8,6 +8,7 @@ import { useRequest } from "@/hooks";
 import numeral from "numeral";
 import { compareDesc, parseJSON, compareAsc, format } from "date-fns";
 import { useDiligence } from "@/context/diligence";
+import { EmptyList } from "@/components/features/emptyList";
 
 const AllRequest = () => {
   const { useViewAllRequestQuery } = useRequest();
@@ -49,12 +50,12 @@ const AllRequest = () => {
 
   return (
     <div>
-      {allRequest.isLoading ? (
-        <div>Loading...</div>
-      ) : allRequest.isSuccess ? (
+      {allRequest.isSuccess ? (
         <CMTable header={headers} body={bodyData} />
       ) : (
-        <div>There was an error</div>
+        <div className="flex justify-center mt-12">
+          <EmptyList />
+      </div>
       )}
     </div>
   );
