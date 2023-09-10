@@ -154,7 +154,7 @@ const CMTable = ({
             nextClassName=""
             nextLinkClassName="px-3 py-1.5 text-black border-l border-border"
             activeClassName=""
-            activeLinkClassName="text-black bg-background-blue rounded"
+            activeLinkClassName="!text-black !bg-background-blue !rounded"
           />
         </div>
       ) : (
