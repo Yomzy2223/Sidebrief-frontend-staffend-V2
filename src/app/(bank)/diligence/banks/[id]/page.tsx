@@ -39,9 +39,10 @@ export default function BankDetail({ params }: { params: { id: string } }) {
         name={selectedEnterprise?.name || "--"}
         address={selectedEnterprise?.address || "--"}
         adminEmail={selectedEnterprise?.adminEmail || "--"}
-        image={isImage ? selectedEnterprise?.logo || EmptyImage : EmptyImage}
+        image={isImage ? selectedEnterprise?.logo! : EmptyImage}
         id={selectedEnterprise?.id as string}
         brandColor={selectedEnterprise?.color || ""}
+        loading={enterpriseById.isLoading || imageCheck.isLoading}
       />
       <div className="space-y-4">
         <h6 className="text-xl font-semibold leading-6 text-foreground">Onboarded branches</h6>
