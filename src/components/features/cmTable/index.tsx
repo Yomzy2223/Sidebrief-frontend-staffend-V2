@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode , useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { Loader } from "./loader";
 interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
@@ -43,6 +43,13 @@ const CMTable = ({
   onCellClick,
   lastColumnCursor,
 }: TableProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
   const handleCellClick = (
     cellData?: string | number,
     rowIndex?: number,
@@ -76,7 +83,9 @@ const CMTable = ({
 
   return (
     <>
-      {body?.length ? (
+      {isLoading ? (
+        <Loader/>
+      ) : body?.length ? (
         <div>
           <Table className="min-w-full bg-white border-spacing-0">
             <TableHeader className="w-full text-base text-gray-900 bg-gray-100 border-none">

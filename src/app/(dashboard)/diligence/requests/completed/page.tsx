@@ -51,11 +51,7 @@ const Completed = () => {
 
   return (
     <>
-      {allRequest.isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <CMTable header={headers} body={bodyData} lastColumnCursor />
-      )}
+      <CMTable header={headers} body={bodyData} lastColumnCursor />
     </>
   );
 };
