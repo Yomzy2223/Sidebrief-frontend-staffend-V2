@@ -6,6 +6,7 @@ import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import EmptyImage from "@/assets/images/emptyImage.png";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const BankDetailHeader = ({ id }: { id: string }) => {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
@@ -22,14 +23,22 @@ export const BankDetailHeader = ({ id }: { id: string }) => {
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-4">
             <div className="relative w-[71px] h-[71px] rounded-sm overflow-hidden">
-              <Image
-                src={isImage ? selectedEnterprise?.logo || EmptyImage : EmptyImage}
-                alt={`enterprise-image`}
-                fill
-              />
+              {imageCheck.isLoading || enterpriseById.isLoading ? (
+                <Skeleton className="w-full h-full" />
+              ) : (
+                <Image
+                  src={isImage ? selectedEnterprise?.logo! : EmptyImage}
+                  alt={`enterprise-image`}
+                  fill
+                />
+              )}
             </div>
             <h3 className="text-2xl font-semibold leading-normal">
-              {selectedEnterprise?.name || "--"}
+              {enterpriseById.isLoading ? (
+                <Skeleton className="h-[17px] w-[244px]" />
+              ) : (
+                selectedEnterprise?.name
+              )}
             </h3>
           </div>
           <div className="flex gap-6">
