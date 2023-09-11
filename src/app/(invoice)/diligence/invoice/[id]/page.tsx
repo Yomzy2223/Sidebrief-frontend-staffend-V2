@@ -10,11 +10,13 @@ import { cn } from "@/lib/utils";
 import { useEnterprise } from "@/hooks";
 import { format, parseJSON } from "date-fns";
 import numeral from "numeral";
+import { Loader } from "@/components/features/cmTable/loader";
 
 export default function InvoicePage({ params }: { params: { id: string } }) {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
   const enterpriseById = useViewEnterpriseByIdQuery(params.id);
   const selectedEnterprise = enterpriseById.data?.data.data;
+  const enterpriseByIdLoading = enterpriseById?.isLoading
 
   const completedRequests = selectedEnterprise?.diligenceRequest.filter(
     (el) => el.status === "Completed"
@@ -41,20 +43,26 @@ export default function InvoicePage({ params }: { params: { id: string } }) {
           dateJoined={selectedEnterprise?.createdAt || ""}
         />
         <div className="w-11/12 mx-auto -translate-y-20">
-          <CMTable
-            header={headers}
-            body={
-              completedRequests?.map((el, index) => [
-                index + 1,
-                el.name,
-                el.registrationNumber,
-                "Registered",
-                "#10,000",
-                el.createdBy,
-                format(parseJSON(el.createdAt), "MMMM dd (HH:mm)"),
-              ]) || []
-            }
-          />
+          {enterpriseById?.isLoading ? (
+            <Loader/>
+          ) : (
+            <CMTable
+              header={headers}
+              isLoading={enterpriseByIdLoading}
+              body={
+                completedRequests?.map((el, index) => [
+                  index + 1,
+                  el.name,
+                  el.registrationNumber,
+                  "Registered",
+                  "#10,000",
+                  el.createdBy,
+                  format(parseJSON(el.createdAt), "MMMM dd (HH:mm)"),
+                ]) || []
+              }
+            />
+          )}
+         
         </div>
       </div>
       <div className="bg-secondary py-2.5">

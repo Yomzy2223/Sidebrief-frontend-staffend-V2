@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode , useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,12 +14,13 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { Loader } from "./loader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
   link?: boolean;
-
+  isLoading?:boolean;
   lastColumnCursor?: boolean;
   bankLogo?: string;
   rowCursor?: boolean;
@@ -34,6 +35,10 @@ interface TableProps {
   ) => void;
 }
 
+// const loadTable = async () => {
+//   throw new Error("Fetch data function not provided");
+// };
+
 const CMTable = ({
   header,
   body,
@@ -42,7 +47,10 @@ const CMTable = ({
   onRowClick,
   onCellClick,
   lastColumnCursor,
+  isLoading
 }: TableProps) => {
+
+  
   const handleCellClick = (
     cellData?: string | number,
     rowIndex?: number,
@@ -76,7 +84,9 @@ const CMTable = ({
 
   return (
     <>
-      {body?.length ? (
+      {isLoading ? (
+        <Loader/>
+      ) : body?.length ? (
         <div>
           <Table className="min-w-full bg-white border-spacing-0">
             <TableHeader className="w-full text-base text-gray-900 bg-gray-100 border-none">
@@ -154,7 +164,7 @@ const CMTable = ({
             nextClassName=""
             nextLinkClassName="px-3 py-1.5 text-black border-l border-border"
             activeClassName=""
-            activeLinkClassName="text-black bg-background-blue rounded"
+            activeLinkClassName="!text-black !bg-background-blue !rounded"
           />
         </div>
       ) : (

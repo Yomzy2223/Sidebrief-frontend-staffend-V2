@@ -1,13 +1,15 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { AddOrEditBank } from "../AddOrEditBank";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BankInfoProps {
-  image: any;
+  image: string | StaticImageData;
   name: string;
   address: string;
   adminEmail: string;
   brandColor?: string;
   id: string;
+  loading: boolean;
 }
 
 export const BankSettingInfo = ({
@@ -17,6 +19,7 @@ export const BankSettingInfo = ({
   adminEmail,
   brandColor,
   id,
+  loading,
 }: BankInfoProps) => {
   return (
     <div className="space-y-4">
@@ -24,16 +27,20 @@ export const BankSettingInfo = ({
       <div className="flex gap-6 p-6 border divide-x rounded-sm">
         <div className="grow">
           <div className="relative w-[148px] h-[148px] rounded-sm overflow-hidden">
-            <Image src={image} alt={`${name}-image`} fill />
+            {loading ? (
+              <Skeleton className="w-full h-full" />
+            ) : (
+              <Image src={image} alt={`${name}-image`} fill />
+            )}
           </div>
         </div>
         <div className="flex grow-[5] divide-x">
           <div className="flex flex-col px-6 divide-y grow">
-            <Detail detailName="Bank name" detail={name} />
-            <Detail detailName="Bank headquarters address" detail={address} />
+            <Detail detailName="Bank name" detail={name} loading={loading} />
+            <Detail detailName="Bank headquarters address" detail={address} loading={loading} />
           </div>
           <div className="flex flex-col px-6 divide-y grow">
-            <Detail detailName="Account admin email" detail={adminEmail} />
+            <Detail detailName="Account admin email" detail={adminEmail} loading={loading} />
           </div>
         </div>
         <div className="flex justify-end grow">
@@ -45,7 +52,7 @@ export const BankSettingInfo = ({
               address={address}
               triggerText="Edit"
               bankId={id}
-              logo={image}
+              logo={typeof image === "string" ? image : image.src}
               color={brandColor || ""}
             />
           </div>
@@ -55,13 +62,25 @@ export const BankSettingInfo = ({
   );
 };
 
-const Detail = ({ detail, detailName }: { detailName: string; detail: string }) => {
+const Detail = ({
+  detail,
+  detailName,
+  loading,
+}: {
+  detailName: string;
+  detail: string;
+  loading: boolean;
+}) => {
   return (
     <div className="flex flex-col justify-center space-y-2 grow">
       <p className="text-base font-medium leading-snug text-foreground tracking-[0.32px]">
         {detailName}
       </p>
-      <p className="text-base leading-relaxed text-muted-foreground">{detail}</p>
+      {loading ? (
+        <Skeleton className="h-[16px] w-[250px]" />
+      ) : (
+        <p className="text-base leading-relaxed text-muted-foreground">{detail}</p>
+      )}
     </div>
   );
 };

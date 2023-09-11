@@ -95,7 +95,9 @@ export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormPr
             <Button type="button" variant={"ghost"} onClick={closeModal}>
               Close
             </Button>
-            <Button type="submit">Upload</Button>
+            <Button type="submit" loading={submitRequestDocument.isLoading}>
+              Upload
+            </Button>
           </div>
         </form>
       </Form>

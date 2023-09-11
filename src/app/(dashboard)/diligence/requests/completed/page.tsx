@@ -8,11 +8,14 @@ import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { CompletedDialog } from "../action";
 import { useDiligence } from "@/context/diligence";
+import { Loader } from "@/components/features/cmTable/loader";
 
 const Completed = () => {
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
+
+  const requestsLoading = allRequest?.isLoading
 
   const { searchValue } = useDiligence();
 
@@ -51,11 +54,11 @@ const Completed = () => {
 
   return (
     <>
-      {allRequest.isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <CMTable header={headers} body={bodyData} lastColumnCursor />
-      )}
+    {allRequest.isLoading ? (
+      <Loader/>
+    ) : (
+      <CMTable header={headers} body={bodyData} lastColumnCursor />
+    )}
     </>
   );
 };
