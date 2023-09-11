@@ -9,6 +9,7 @@ import numeral from "numeral";
 import { compareDesc, parseJSON, compareAsc, format } from "date-fns";
 import { useDiligence } from "@/context/diligence";
 import { EmptyList } from "@/components/features/emptyList";
+import { Loader } from "@/components/features/cmTable/loader";
 
 const AllRequest = () => {
   const { useViewAllRequestQuery } = useRequest();
@@ -50,7 +51,9 @@ const AllRequest = () => {
 
   return (
     <div>
-      {allRequest.isSuccess ? (
+      {allRequest.isLoading ? (
+        <Loader/>
+      ) : allRequest.isSuccess ? (
         <CMTable header={headers} body={bodyData} />
       ) : (
         <div className="flex justify-center mt-12">

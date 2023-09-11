@@ -6,12 +6,12 @@ import numeral from "numeral";
 import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { useDiligence } from "@/context/diligence";
+import { Loader } from "@/components/features/cmTable/loader";
 
 const Unverified = () => {
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
-
   const { searchValue } = useDiligence();
 
   const unVerified = allRequestData?.filter((el) => el?.status === "Unverified") || [];
@@ -38,7 +38,15 @@ const Unverified = () => {
       getTimeInfo(request.updatedAt),
     ]);
 
-  return <CMTable header={headers} body={bodyData} lastColumnCursor />;
+    return (
+      <>
+        {allRequest.isLoading ? (
+          <Loader/>
+        ) : (
+          <CMTable header={headers} body={bodyData} lastColumnCursor />
+        )}
+      </>
+    );
 };
 
 export default Unverified;

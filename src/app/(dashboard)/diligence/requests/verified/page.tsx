@@ -8,11 +8,13 @@ import { format, parseJSON, compareDesc } from "date-fns";
 import { getTimeInfo } from "@/lib/globalFunctions";
 import { VerifiedDialog } from "../action";
 import { useDiligence } from "@/context/diligence";
+import { Loader } from "@/components/features/cmTable/loader";
 
 const Verified = () => {
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
+  const requestsLoading = allRequest?.isLoading
 
   const { searchValue } = useDiligence();
 
@@ -49,15 +51,15 @@ const Verified = () => {
       <VerifiedDialog key={request.id} requestId={request.id} />,
     ]);
 
-  return (
-    <>
-      {allRequest.isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <CMTable header={headers} body={bodyData} lastColumnCursor />
-      )}
-    </>
-  );
+    return (
+      <>
+        {allRequest.isLoading ? (
+          <Loader/>
+        ) : (
+          <CMTable header={headers} body={bodyData} lastColumnCursor />
+        )}
+      </>
+    );
 };
 
 export default Verified;

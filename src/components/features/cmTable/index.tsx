@@ -15,11 +15,12 @@ import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "./loader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
   link?: boolean;
-
+  isLoading?:boolean;
   lastColumnCursor?: boolean;
   bankLogo?: string;
   rowCursor?: boolean;
@@ -34,6 +35,10 @@ interface TableProps {
   ) => void;
 }
 
+// const loadTable = async () => {
+//   throw new Error("Fetch data function not provided");
+// };
+
 const CMTable = ({
   header,
   body,
@@ -42,14 +47,10 @@ const CMTable = ({
   onRowClick,
   onCellClick,
   lastColumnCursor,
+  isLoading
 }: TableProps) => {
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  
   const handleCellClick = (
     cellData?: string | number,
     rowIndex?: number,

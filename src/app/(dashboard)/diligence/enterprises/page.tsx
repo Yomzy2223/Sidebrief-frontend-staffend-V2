@@ -9,6 +9,7 @@ import { format, parseJSON, compareDesc } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useDiligence } from "@/context/diligence";
 import { EmptyList } from "@/components/features/emptyList";
+import { Loader } from "@/components/features/cmTable/loader";
 const Banks = () => {
   const router = useRouter();
 
@@ -21,6 +22,7 @@ const Banks = () => {
   const allRequest = useViewAllRequestQuery();
 
   const enterprises = allEnterprise.data?.data.data;
+  const enterpriseLoading = allEnterprise.isLoading
 
   const onRowClick = (cellData: any) => {
     const name = cellData[1];
@@ -42,10 +44,14 @@ const Banks = () => {
 
   return (
     <div>
-      {allEnterprise.isSuccess && allRequest.isSuccess ? (
+      {allEnterprise.isLoading || allRequest.isLoading ? (
+        <Loader/>
+      ) : allEnterprise.isSuccess && allRequest.isSuccess ? (
         <CMTable
+          isLoading={allEnterprise.isLoading || allRequest.isLoading}
           header={headers}
           // ['S/N', 'Onboarded Banks', 'Requests','Branches', 'Date', 'Registration URl',]
+          // isLoading={enterpriseLoading}
           body={
             filteredEnterprise
               ?.sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
