@@ -79,7 +79,7 @@ const CMTable = ({
       {body?.length ? (
         <div>
           <Table className="min-w-full bg-white border-spacing-0">
-            <TableHeader className="w-full text-base text-gray-900 bg-gray-100 border-none">
+            <TableHeader className="w-full text-base text-gray-900 bg-muted border-none">
               <TableRow className="w-full ">
                 {header?.map((text, index) => (
                   <TableHead
