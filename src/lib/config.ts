@@ -1,4 +1,5 @@
-import { getAllYearsUpToCurrentYear } from "./globalFunctions";
+import axios from "axios";
+import { getAllYearsUpToCurrentYear, getUserInfo } from "./globalFunctions";
 
 export const allMonths = [
   {
@@ -52,3 +53,15 @@ export const allMonths = [
 ];
 
 export const allYears = getAllYearsUpToCurrentYear();
+
+export const client = axios.create({
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "https://iapkmjspxh.us-east-1.awsapprunner.com/"
+      : "https://h2rwx2fbhm.us-east-1.awsapprunner.com/",
+  headers: {
+    "Content-Type": "application/json",
+    // Authorization: `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`,
+    Authorization: `Bearer ${getUserInfo()?.data?.token}`,
+  },
+});

@@ -1,62 +1,52 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
 
 const CMSelect = ({
-	label,
-	placeholder,
-	options,
-	handleSelect,
-	className,
-	defaultValue,
+  label,
+  placeholder,
+  options,
+  handleSelect,
+  className,
+  defaultValue,
 }: {
-	label?: string;
-	placeholder: string;
-	options: string[];
-	handleSelect?: (v: any) => void;
-	className?: { trigger?: string };
-	defaultValue?: string;
+  label?: string;
+  placeholder?: string;
+  options: string[];
+  handleSelect?: (v: any) => void;
+  className?: { trigger?: string };
+  defaultValue?: string;
 }) => {
-	return (
-		<Select onValueChange={handleSelect} defaultValue={defaultValue}>
-			<SelectTrigger
-				className={cn(
-					buttonVariants({
-						variant: "outline",
-						className: "bg-transparent text-white",
-					}),
-					className?.trigger
-				)}
-			>
-				<SelectValue placeholder={placeholder} />
-			</SelectTrigger>
-			<SelectContent>
-				<SelectGroup>
-					<SelectLabel>{label}</SelectLabel>
-					{options.map((option, i) => (
-						<SelectItem
-							key={i}
-							value={option}
-							// className="text-white"
-						>
-							{option}
-						</SelectItem>
-					))}
-				</SelectGroup>
-			</SelectContent>
-		</Select>
-	);
+  
+  return (
+    <Select onValueChange={handleSelect} defaultValue={defaultValue}>
+      <SelectTrigger
+        className={cn("w-[140px] rounded-lg bg-white/50 ", className?.trigger)}
+      >
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>{label}</SelectLabel>
+          {options.map((option, i) => (
+            <SelectItem key={i} value={option} className="!text-gray-900">
+              {option}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
 };
 
 export default CMSelect;
