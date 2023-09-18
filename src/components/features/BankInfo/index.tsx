@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { cn, convertToOneSignificantFigure } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import numeral from "numeral";
 import { ArrowUp } from "@/assets/icons";
 
@@ -36,14 +36,8 @@ export const BankInfo = (props: BankInfoProps) => {
       {props.branch && (
         <div className="flex flex-col">
           <div className="flex flex-col flex-1 px-6 divide-y">
-            <Detail
-              detailName="Account admin name"
-              detail={props.branchAdminName}
-            />
-            <Detail
-              detailName="Account admin email"
-              detail={props.branchAdminEmail}
-            />
+            <Detail detailName="Account admin name" detail={props.branchAdminName} />
+            <Detail detailName="Account admin email" detail={props.branchAdminEmail} />
           </div>
           <Link
             href="#"
@@ -89,16 +83,12 @@ export const BankInfo = (props: BankInfoProps) => {
         )}
         <RealBox
           title="BUSINESSES VERIFIED"
-          number={`${numeral(
-            convertToOneSignificantFigure(props.numberOfBusinesssVerified)
-          ).format("0,0")}+`}
+          number={`${numeral().format("0,0")}+`}
           percentThisMonth={25}
         />
         <RealBox
           title="AMOUNT SPENT"
-          number={`#${numeral(
-            convertToOneSignificantFigure(props.totalAmountSpent)
-          ).format("0,0")}+`}
+          number={`#${numeral().format("0,0")}+`}
           percentThisMonth={25}
         />
       </div>
@@ -124,9 +114,7 @@ const RealBox = ({
   return (
     <TheBox>
       <p className="text-sm leading-4">{title}</p>
-      <p className="text-3xl font-semibold leading-10 text-foreground">
-        {number}
-      </p>
+      <p className="text-3xl font-semibold leading-10 text-foreground">{number}</p>
       <div className="flex items-center gap-2">
         <div className="flex items-center h-6 gap-1 px-1 rounded bg-grey">
           <p className="text-xs leading-4">{percentThisMonth}%</p> <ArrowUp />
@@ -137,13 +125,7 @@ const RealBox = ({
   );
 };
 
-const Detail = ({
-  detail,
-  detailName,
-}: {
-  detailName: string;
-  detail: string;
-}) => {
+const Detail = ({ detail, detailName }: { detailName: string; detail: string }) => {
   return (
     <div className="flex flex-col justify-center space-y-2 grow">
       <p className="text-base font-medium leading-snug text-foreground tracking-[0.32px]">

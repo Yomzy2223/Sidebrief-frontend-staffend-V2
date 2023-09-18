@@ -99,7 +99,7 @@ const Login = () => {
               Sign in
             </Button>
             <p>
-              Don't have have an account?{" "}
+              Don&#34;t have have an account?{" "}
               <Link href="/auth/signup" className="text-secondary">
                 Sign up
               </Link>

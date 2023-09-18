@@ -69,7 +69,7 @@ const CMTable = ({
     router.push(pathname + "?" + "itemOffset=" + newOffset);
   };
 
-  const handleRowClick = (rowData?: (string | number)[], rowIndex?: number): void => {
+  const handleRowClick = (rowData?: any, rowIndex?: number): void => {
     // Call the provided onRowClick function with the clicked cell's data
     if (onRowClick) onRowClick(rowData, rowIndex);
   };

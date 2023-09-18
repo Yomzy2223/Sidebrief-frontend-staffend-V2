@@ -19,7 +19,6 @@ export const useResponse = () => {
       className: "bg-red-200 border-secondary",
       title,
       description: error.response.data.error,
-      success: hideIcon ? null : false,
       action,
     });
   };
@@ -29,7 +28,6 @@ export const useResponse = () => {
       className: "bg-blue-100 ",
       title,
       description: data?.data?.message,
-      success: hideIcon ? null : true,
       action,
     });
   };
