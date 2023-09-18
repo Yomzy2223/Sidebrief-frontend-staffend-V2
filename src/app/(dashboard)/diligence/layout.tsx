@@ -7,6 +7,7 @@ import CMSelect from "@/components/cmSelect";
 import BankHeader from "./header";
 import { useEnterprise, useRequest } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { DiligenceProvider, useDiligence } from "@/context/diligence";
 
 const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -30,39 +31,49 @@ const DiligenceLayout = ({ children }: { children: React.ReactNode }) => {
   //   };
 
   return (
-    <div>
-      <BankHeader />
-      <div className="flex w-full pl-10 pr-6 h-16 border-b border-[#EDF1F6] items-center justify-between">
-        <div className="flex items-center gap-8">
-          <ActiveNav
-            title="Enterprises"
-            path="/diligence/enterprises"
-            length={allEnterprise.isSuccess ? allEnterprise.data.data.data.length : 0}
-          />
-          <ActiveNav
-            title="Requests"
-            path="/diligence/requests"
-            length={allRequest.isSuccess ? allRequest.data.data.data.length : 0}
-          />
-        </div>
-        {!path ? (
-          <div className="max-w-[373px] w-full">
-            <Search />
+    <DiligenceProvider>
+      <div>
+        <BankHeader />
+        <div className="flex w-full pl-10 pr-6 h-16 border-b border-[#EDF1F6] items-center justify-between">
+          <div className="flex items-center gap-8">
+            <ActiveNav
+              title="Enterprises"
+              path="/diligence/enterprises"
+              length={allEnterprise.isSuccess ? allEnterprise.data.data.data.length : 0}
+            />
+            <ActiveNav
+              title="Requests"
+              path="/diligence/requests"
+              length={allRequest.isSuccess ? allRequest.data.data.data.length : 0}
+            />
           </div>
-        ) : (
-          <p className="flex"></p>
-          // <div className="flex items-center gap-2 w-fit">
-          // 	<p className="text-sm w-full font-normal text-[#4E5152] leading-[21px]">
-          // 		{" "}
-          // 		Filter by:
-          // 	</p>
-          // 	<CMSelect defaultValue="All" options={options} handleSelect={(e)=>handleSelect(e)}/>
-          // </div>
-        )}
+          {!path ? (
+            <Searcher />
+          ) : (
+            <p className="flex"></p>
+            // <div className="flex items-center gap-2 w-fit">
+            // 	<p className="text-sm w-full font-normal text-[#4E5152] leading-[21px]">
+            // 		{" "}
+            // 		Filter by:
+            // 	</p>
+            // 	<CMSelect defaultValue="All" options={options} handleSelect={(e)=>handleSelect(e)}/>
+            // </div>
+          )}
+        </div>
+        {children}
       </div>
-      {children}
-    </div>
+    </DiligenceProvider>
   );
 };
 
 export default DiligenceLayout;
+
+const Searcher = () => {
+  const { setSearchValue } = useDiligence();
+
+  return (
+    <div className="max-w-[373px] w-full">
+      <Search collectSearch={setSearchValue} />
+    </div>
+  );
+};

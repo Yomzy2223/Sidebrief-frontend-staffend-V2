@@ -14,7 +14,9 @@ export const useAuth = () => {
     },
     onSuccess(data, variables, context) {
       handleSuccess({ data });
-      localStorage.setItem("userInfo", JSON.stringify(data.data));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userInfo", JSON.stringify(data.data));
+      }
       router.push("/");
     },
     retry: 3,
@@ -27,7 +29,9 @@ export const useAuth = () => {
     },
     onSuccess(data, variables, context) {
       handleSuccess({ data });
-      localStorage.setItem("userInfo", JSON.stringify(data.data));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userInfo", JSON.stringify(data.data));
+      }
       router.push("/");
     },
     retry: 3,

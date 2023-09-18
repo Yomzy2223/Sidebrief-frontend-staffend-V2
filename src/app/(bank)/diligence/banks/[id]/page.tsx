@@ -9,11 +9,13 @@ import { format, parseJSON } from "date-fns";
 import { IDiligenceManager, IRequest } from "@/types/returns";
 import { useCheckIsImage } from "@/hooks";
 import EmptyImage from "@/assets/images/emptyImage.png";
+import { Loader } from "@/components/features/cmTable/loader";
 
 export default function BankDetail({ params }: { params: { id: string } }) {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
   const enterpriseById = useViewEnterpriseByIdQuery(params.id);
   const selectedEnterprise = enterpriseById.data?.data.data;
+  const enterpriseLoading = enterpriseById?.isLoading
 
   const getRequestsAssociatedWithbranch: (a: IDiligenceManager, b: IRequest[]) => number = (
     branch,
@@ -39,13 +41,17 @@ export default function BankDetail({ params }: { params: { id: string } }) {
         name={selectedEnterprise?.name || "--"}
         address={selectedEnterprise?.address || "--"}
         adminEmail={selectedEnterprise?.adminEmail || "--"}
-        image={isImage ? selectedEnterprise?.logo || EmptyImage : EmptyImage}
+        image={isImage ? selectedEnterprise?.logo! : EmptyImage}
         id={selectedEnterprise?.id as string}
         brandColor={selectedEnterprise?.color || ""}
+        loading={enterpriseById.isLoading || imageCheck.isLoading}
       />
       <div className="space-y-4">
         <h6 className="text-xl font-semibold leading-6 text-foreground">Onboarded branches</h6>
-        <CMTable
+        {enterpriseById?.isLoading ? (
+          <Loader/> 
+        ): (
+          <CMTable
           header={["S/N", "Branches", "Requests", "Branch Admin Email", "Date"]}
           body={
             selectedEnterprise?.diligenceManager.map((el, index) => [
@@ -55,8 +61,11 @@ export default function BankDetail({ params }: { params: { id: string } }) {
               el.managerEmail,
               format(parseJSON(el.createdAt), "dd/MM/yyyy"),
             ]) || []
+
           }
         />
+        )}
+        
       </div>
     </div>
   );

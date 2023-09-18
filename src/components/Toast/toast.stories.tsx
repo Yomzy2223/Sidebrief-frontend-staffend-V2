@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import {Toaster} from "@/components/features/Toast"
+import { Toaster } from "./index";
 
 const meta: Meta<typeof Toaster> = {
-    title: "UI/Toast",
-    component: Toaster,
-	tags: ["autodocs"],
-	argTypes: {},
+  title: "UI/Toast",
+  component: Toaster,
+  tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;
@@ -20,28 +20,21 @@ type Story = StoryObj<typeof Toaster>;
 // }
 
 export const WithTitle: Story = {
-    args: {
-        title: "Message",
-        
-    }
-}
+  args: {
+    title: "Message",
+  },
+};
 
 export const WithTitleAndDescription: Story = {
-    args: {
-        title: "Message",
-        description:"Messsage sent successfully"
-        
-    }
-}
+  args: {
+    title: "Message",
+    description: "Messsage sent successfully",
+  },
+};
 
 export const WithTitleAndDescriptionAndAction: Story = {
-    args: {
-        title: "Message",
-        description:"Messsage sent successfully",
-        action: "Sent"
-        
-    }
-}
-
-
-
+  args: {
+    title: "Message",
+    description: "Messsage sent successfully",
+  },
+};
