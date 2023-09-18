@@ -11,7 +11,7 @@ const BankHeader = () => {
   return (
     <div className="flex w-full items-center py-11 pl-10 pr-6 border-b border-[#EDF1F6] justify-between">
       <p className="text-2xl not-italic font-semibold leading-[130%] text-gray-900">
-        Diligence Registration(s)
+        Diligence Searches
       </p>
       <div className="">
         <AddOrEditBank triggerText="Add New Enterprise" variant="add" banks={banks || []} />

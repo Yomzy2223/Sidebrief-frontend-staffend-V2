@@ -3,6 +3,7 @@ import { Search } from "@/components/features/Search";
 import { ActiveNav } from "@/components/features/activeNav";
 import { useRequest } from "@/hooks";
 import React from "react";
+import ActiveNav2 from "@/components/features/activeNav/ActiveNav2";
 
 const Requestlayout = ({ children }: { children: React.ReactNode }) => {
   const { useViewAllRequestQuery } = useRequest();
@@ -18,40 +19,8 @@ const Requestlayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <div className="flex items-center justify-between py-4 pl-10 pr-6">
         <div className="flex items-center gap-2">
-          <ActiveNav
-            title="All"
-            path="/diligence/requests"
-            status={true}
-            length={allRequestData?.length}
-          />
-          <ActiveNav
-            title="Unverified"
-            path="/diligence/requests/unverified"
-            status={true}
-            length={unVerified?.length}
-          />
-          <ActiveNav
-            title="Verified"
-            path="/diligence/requests/verified"
-            status={true}
-            length={verified?.length}
-          />
-          {/* <ActiveNav
-            title="In Progress"
-            path="/diligence/requests/in-progress"
-            status={true}
-            length={inProgress?.length}
-          /> */}
-          <ActiveNav
-            title="Completed"
-            path="/diligence/requests/completed"
-            status={true}
-            length={completed?.length}
-          />
+          <ActiveNav2 nav={allStatus} defaultURL="/diligence/requests" />
         </div>
-        {/* <div className="flex">
-          <Search />
-        </div> */}
       </div>
       {children}
     </div>
@@ -59,3 +28,10 @@ const Requestlayout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default Requestlayout;
+
+export const allStatus = [
+  { text: "All-Searches", path: "/diligence/requests" },
+  { text: "Unverified", path: "/diligence/requests/unverified" },
+  { text: "Verified", path: "/diligence/requests/verified" },
+  { text: "Completed", path: "/diligence/requests/completed" },
+];

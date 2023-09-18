@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/images/sidebrief-logo.png";
 import InputWithLabel from "@/components/inputs/inputWithLabel";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const { signIn, signInMutation, forgotPassword } = useAuth();
@@ -102,7 +103,11 @@ const Login = () => {
               Sign in
             </Button>
             <p>
+<<<<<<< HEAD
+              Don&#34;t have have an account?{" "}
+=======
               Don&apos;t have have an account?{" "}
+>>>>>>> origin/staging
               <Link href="/auth/signup" className="text-secondary">
                 Sign up
               </Link>
