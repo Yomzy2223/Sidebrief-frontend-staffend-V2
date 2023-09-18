@@ -7,10 +7,15 @@ import { ActionButton } from "./action";
 import { useRequest } from "@/hooks";
 import numeral from "numeral";
 import { compareDesc, parseJSON, compareAsc, format } from "date-fns";
+import { useDiligence } from "@/context/diligence";
+import { EmptyList } from "@/components/features/emptyList";
+import { Loader } from "@/components/features/cmTable/loader";
 
 const AllRequest = () => {
   const { useViewAllRequestQuery } = useRequest();
   const allRequest = useViewAllRequestQuery();
+
+  const { searchValue } = useDiligence();
 
   const headers = [
     "S/N",
@@ -22,7 +27,18 @@ const AllRequest = () => {
   ];
 
   const allRequestData = allRequest?.data?.data?.data || [];
-  const bodyData = allRequestData
+
+  const normalize = (text: string) => text?.trim().toLowerCase();
+
+  const filteredRequest = allRequestData?.filter(
+    (el: any) =>
+      normalize(el?.createdBy)?.includes(searchValue) ||
+      normalize(el?.name)?.includes(searchValue) ||
+      el?.registrationNumber?.includes(searchValue) ||
+      normalize(el?.status)?.includes(searchValue)
+  );
+
+  const bodyData = filteredRequest
     .sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
     .map((request, index) => [
       numeral(index + 1).format("00"),
@@ -36,11 +52,13 @@ const AllRequest = () => {
   return (
     <div>
       {allRequest.isLoading ? (
-        <div>Loading...</div>
+        <Loader/>
       ) : allRequest.isSuccess ? (
         <CMTable header={headers} body={bodyData} />
       ) : (
-        <div>There was an error</div>
+        <div className="flex justify-center mt-12">
+          <EmptyList />
+      </div>
       )}
     </div>
   );

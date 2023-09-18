@@ -20,7 +20,7 @@ const requestVerifySchema = z.object({
   name: z.string().nonempty("you need to upload a file"),
   link: z.string().nonempty("you need to upload a file"),
   type: z.string().nonempty("you need to upload a file"),
-  description: z.string().nonempty("Please enter a note description"),
+  description: z.string(),
 });
 
 interface requestVerifyFormProps {
@@ -95,7 +95,9 @@ export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormPr
             <Button type="button" variant={"ghost"} onClick={closeModal}>
               Close
             </Button>
-            <Button type="submit">Upload</Button>
+            <Button type="submit" loading={submitRequestDocument.isLoading}>
+              Upload
+            </Button>
           </div>
         </form>
       </Form>

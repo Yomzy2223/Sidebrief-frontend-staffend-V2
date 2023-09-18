@@ -17,9 +17,8 @@ export const getUserInfo = () => {
   let userInfo;
   let parsedUserInfo;
 
-  if (typeof localStorage !== "undefined") {
+  if (typeof window !== "undefined") {
     userInfo = localStorage.getItem("userInfo");
-
     if (userInfo) {
       parsedUserInfo = JSON.parse(userInfo);
     }

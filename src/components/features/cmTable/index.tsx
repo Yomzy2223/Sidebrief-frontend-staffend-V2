@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,17 +14,18 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import ReactPaginate from "react-paginate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import { Loader } from "./loader";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
   link?: boolean;
-
+  isLoading?: boolean;
   lastColumnCursor?: boolean;
   bankLogo?: string;
   rowCursor?: boolean;
   onRowClick?: (
-    cellData?: (string | number | { imageLink: string; bankName: string })[],
+    cellData?: (string | number | { imageLink: string; bankName: string } | ReactNode)[],
     rowIndex?: number
   ) => void;
   onCellClick?: (
@@ -34,6 +35,10 @@ interface TableProps {
   ) => void;
 }
 
+// const loadTable = async () => {
+//   throw new Error("Fetch data function not provided");
+// };
+
 const CMTable = ({
   header,
   body,
@@ -42,6 +47,7 @@ const CMTable = ({
   onRowClick,
   onCellClick,
   lastColumnCursor,
+  isLoading,
 }: TableProps) => {
   const handleCellClick = (
     cellData?: string | number,
@@ -69,14 +75,18 @@ const CMTable = ({
     router.push(pathname + "?" + "itemOffset=" + newOffset);
   };
 
-  const handleRowClick = (rowData?: any, rowIndex?: number): void => {
-    // Call the provided onRowClick function with the clicked cell's data
+  const handleRowClick = (
+    rowData?: (string | number | { imageLink: string; bankName: string } | ReactNode)[],
+    rowIndex?: number
+  ): void => {
     if (onRowClick) onRowClick(rowData, rowIndex);
   };
 
   return (
     <>
-      {body?.length ? (
+      {isLoading ? (
+        <Loader />
+      ) : body?.length ? (
         <div>
           <Table className="min-w-full bg-white border-spacing-0">
             <TableHeader className="w-full text-base text-gray-900 bg-muted border-none">
@@ -154,7 +164,7 @@ const CMTable = ({
             nextClassName=""
             nextLinkClassName="px-3 py-1.5 text-black border-l border-border"
             activeClassName=""
-            activeLinkClassName="text-black bg-background-light rounded"
+            activeLinkClassName="!text-black !bg-background-blue !rounded"
           />
         </div>
       ) : (

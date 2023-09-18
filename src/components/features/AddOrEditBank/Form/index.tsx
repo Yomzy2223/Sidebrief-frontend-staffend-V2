@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect, useCallback, WheelEvent } from "react";
 import { z } from "zod";
-import { formSchema } from "./constants";
+import { formSchema, editFormSchema } from "./constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/features/fileUpload";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCheckIsImage } from "@/hooks";
-import { useResponse } from "@/hooks/useResponse";
+import { useFileUpload } from "@/hooks/utilityHooks";
 
 export const AddOrEditBankForm = ({
   isAdd,
@@ -59,15 +59,14 @@ export const AddOrEditBankForm = ({
   const createEnterprise = useCreateEnterpriseMutation();
   const updateEnterprise = useUpdateEnterpriseMutation();
   const queryclient = useQueryClient();
-  const { handleError, handleSuccess } = useResponse();
+  const { uploadProgress, mutateAsync: uploadFile, isLoading } = useFileUpload();
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(isAdd ? formSchema : editFormSchema), // dynamic schema
     defaultValues: {
       adminEmail: "",
       address: "",
       color: "",
-      logo: "",
       name: "",
     },
   });
@@ -79,7 +78,7 @@ export const AddOrEditBankForm = ({
       form.setValue("adminEmail", details.adminEmail);
       form.setValue("address", details.address);
       form.setValue("color", details.color);
-      form.setValue("logo", details.logo);
+      // form.setValue("logo", details.logo);
     }
   }, [banks, form, details]);
 
@@ -97,13 +96,25 @@ export const AddOrEditBankForm = ({
     });
   };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let logo = "";
+    if (values.logo) {
+      const { data } = await uploadFile(values.logo);
+      logo = data.url;
+    } else {
+      if (details) {
+        logo = details.logo;
+      } else {
+        logo = "";
+      }
+    }
+
     if (isAdd) {
       const requiredData = {
         name: values.name,
         address: values.address,
         adminEmail: values.adminEmail,
-        logo: values.logo,
+        logo: logo,
         color: values.color,
       };
       createEnterprise.mutate(requiredData, {
@@ -119,7 +130,7 @@ export const AddOrEditBankForm = ({
         name: values.name,
         address: values.address,
         adminEmail: values.adminEmail,
-        logo: values.logo,
+        logo: logo,
         color: values.color,
         enterpriseId: id,
       };
@@ -140,8 +151,12 @@ export const AddOrEditBankForm = ({
 
   const imageCheck = useCheckIsImage(logo);
 
-  const LogoCollector = ({ url }: { url: string; name: string; type: string }) => {
-    form.setValue("logo", url);
+  // const LogoCollector = ({ url }: { url: string; name: string; type: string }) => {
+  //   form.setValue("logo", url);
+  // };
+
+  const SubmitFile = (file: File) => {
+    form.setValue("logo", file);
   };
 
   return (
@@ -194,7 +209,7 @@ export const AddOrEditBankForm = ({
                                 (bank) => bank.name.toLowerCase() === value
                               );
                               form.setValue("name", selectedBank?.name!);
-                              form.setValue("logo", selectedBank?.logo!);
+                              // form.setValue("logo", selectedBank?.logo!);
                               form.setValue("color", selectedBank?.color || "#00A2D4");
 
                               setOpen(false);
@@ -231,7 +246,7 @@ export const AddOrEditBankForm = ({
                 <FormItem>
                   <FormLabel>{isAdd ? "Logo" : "Replace Logo"}</FormLabel>
                   <FormControl>
-                    <FileUpload collectFile={LogoCollector} />
+                    <FileUpload uploadType="submit" submitFile={SubmitFile} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -294,7 +309,7 @@ export const AddOrEditBankForm = ({
         <Button
           type="submit"
           className="w-full"
-          loading={createEnterprise.isLoading || updateEnterprise.isLoading}
+          loading={createEnterprise.isLoading || updateEnterprise.isLoading || isLoading}
         >
           {isAdd ? "Add" : "Done"}
         </Button>
