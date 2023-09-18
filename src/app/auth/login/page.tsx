@@ -103,11 +103,7 @@ const Login = () => {
               Sign in
             </Button>
             <p>
-<<<<<<< HEAD
-              Don&#34;t have have an account?{" "}
-=======
               Don&apos;t have have an account?{" "}
->>>>>>> origin/staging
               <Link href="/auth/signup" className="text-secondary">
                 Sign up
               </Link>
