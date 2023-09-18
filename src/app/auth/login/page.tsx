@@ -31,12 +31,16 @@ const Login = () => {
   }
 
   const handleForgot = () => {
-    let userInfo = localStorage.getItem("userInfo");
+    let userInfo;
     let parsedUserInfo;
 
-    if (userInfo) {
-      parsedUserInfo = JSON.parse(userInfo);
+    if (typeof window !== "undefined") {
+      userInfo = localStorage.getItem("userInfo");
+      if (userInfo) {
+        parsedUserInfo = JSON.parse(userInfo);
+      }
     }
+
     if (parsedUserInfo) {
       forgotPassword({ email: parsedUserInfo.data?.email });
     }
@@ -52,20 +56,20 @@ const Login = () => {
             Your business was well-taken care of when you left
           </p>
         </div>
-        <div className="flex  gap-6">
+        <div className="flex gap-6">
           {signInOptions.map((el, i) => (
             <Button
               key={i}
               variant="ghost"
-              className="flex gap-3 border border-input rounded-lg px-4 py-3 "
+              className="flex gap-3 px-4 py-3 border rounded-lg border-input "
             >
               <Image src={el.icon} alt="" />
               <p>{el.text}</p>
             </Button>
           ))}
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16  ">
-          <div className="flex flex-col gap-6 space-y-8 py-2 bg-white rounded-lg ">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16 ">
+          <div className="flex flex-col gap-6 py-2 space-y-8 bg-white rounded-lg ">
             <InputWithLabel
               form={form}
               name="email"
@@ -98,7 +102,7 @@ const Login = () => {
               Sign in
             </Button>
             <p>
-              Don't have have an account?{" "}
+              Don&apos;t have have an account?{" "}
               <Link href="/auth/signup" className="text-secondary">
                 Sign up
               </Link>

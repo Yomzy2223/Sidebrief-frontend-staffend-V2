@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode , useState, useEffect } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -20,12 +20,12 @@ interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
   link?: boolean;
-  isLoading?:boolean;
+  isLoading?: boolean;
   lastColumnCursor?: boolean;
   bankLogo?: string;
   rowCursor?: boolean;
   onRowClick?: (
-    cellData?: (string | number | { imageLink: string; bankName: string })[],
+    cellData?: (string | number | { imageLink: string; bankName: string } | ReactNode)[],
     rowIndex?: number
   ) => void;
   onCellClick?: (
@@ -47,10 +47,8 @@ const CMTable = ({
   onRowClick,
   onCellClick,
   lastColumnCursor,
-  isLoading
+  isLoading,
 }: TableProps) => {
-
-  
   const handleCellClick = (
     cellData?: string | number,
     rowIndex?: number,
@@ -77,15 +75,17 @@ const CMTable = ({
     router.push(pathname + "?" + "itemOffset=" + newOffset);
   };
 
-  const handleRowClick = (rowData?: (string | number)[], rowIndex?: number): void => {
-    // Call the provided onRowClick function with the clicked cell's data
+  const handleRowClick = (
+    rowData?: (string | number | { imageLink: string; bankName: string } | ReactNode)[],
+    rowIndex?: number
+  ): void => {
     if (onRowClick) onRowClick(rowData, rowIndex);
   };
 
   return (
     <>
       {isLoading ? (
-        <Loader/>
+        <Loader />
       ) : body?.length ? (
         <div>
           <Table className="min-w-full bg-white border-spacing-0">

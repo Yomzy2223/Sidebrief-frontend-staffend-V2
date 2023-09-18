@@ -45,15 +45,15 @@ export const WithProgressBar: Story = {
   },
 };
 
-export const WithFileDisplay: Story = {
-  render: (args) => <Dialog {...args} />,
-  args: {
-    ...NormalDialog.args,
-    title: "Verification successful",
-    description: "We were able to verify the Business and the registration number on CAC.",
-    children: <FileDisplay />,
-  },
-};
+// export const WithFileDisplay: Story = {
+//   render: (args) => <Dialog {...args} />,
+//   args: {
+//     ...NormalDialog.args,
+//     title: "Verification successful",
+//     description: "We were able to verify the Business and the registration number on CAC.",
+//     children: <FileDisplay />,
+//   },
+// };
 
 const DialogWithTrigger = ({ brandColor, children, ...args }: IdialogProps) => {
   const [openDialog, setOpenDialog] = useState(false);

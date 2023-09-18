@@ -19,7 +19,9 @@ const Sidebar = () => {
   const pathname = usePathname();
 
   const handleLogout = () => {
-    localStorage.clear();
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
     router.push("/auth/login");
   };
 
@@ -74,7 +76,7 @@ const Sidebar = () => {
             );
           })}
         </div>
-        <Button variant="ghost2" onClick={handleLogout} className="w-full justify-start">
+        <Button variant="ghost2" onClick={handleLogout} className="justify-start w-full">
           <div className="flex items-center gap-2 ">
             <LogoutIcon />
             {open && <p className="text-destructive">Logout</p>}
