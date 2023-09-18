@@ -1,6 +1,6 @@
 import React from "react";
 import { NotificationCard } from "@/components/features/notifications";
-import Settings from "@/assets/Icons/Settings.svg";
+import Settings from "@/assets/icons/Settings.svg";
 import Logo from "@/assets/images/sidebrief-logo.png";
 import { UserNav } from "@/components/features/nav/user-nav";
 import Image from "next/image";
@@ -22,11 +22,7 @@ const MainHeader = () => {
               size: "icon",
             })}
           >
-            <Image
-              src={Settings}
-              alt={"Settings icon"}
-              className="block w-8 h-8 "
-            />
+            <Image src={Settings} alt={"Settings icon"} className="block w-8 h-8 " />
           </Link>
           <NotificationCard />
           <UserNav />
