@@ -123,8 +123,7 @@ const CMTable = ({
                           "underline text-[#00A2D4]": columnIndex === row.length - 1 && link,
                         },
                         {
-                          "cursor-pointer":
-                            rowCursor || (lastColumnCursor && columnIndex === row.length - 1),
+                          "cursor-pointer": onRowClick,
                         }
                       )}
                       key={columnIndex}
