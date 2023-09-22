@@ -15,10 +15,15 @@ export const useResponse = () => {
   }
 
   const handleError = ({ error, title, action, hideIcon }: errorType) => {
+    let errorMessage;
+    if (error?.response?.data?.error) errorMessage = error?.response?.data?.error;
+    if (typeof error === "string") errorMessage = error;
+    console.log(error);
     toast({
       className: "bg-red-200 border-secondary",
       title,
-      description: error.response.data.error,
+      description: errorMessage,
+      success: hideIcon ? null : false,
       action,
     });
   };
@@ -28,6 +33,7 @@ export const useResponse = () => {
       className: "bg-blue-100 ",
       title,
       description: data?.data?.message,
+      success: hideIcon ? null : true,
       action,
     });
   };
