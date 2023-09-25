@@ -64,6 +64,10 @@ export const handleDownloadFile = (cloudinaryLink: string, fileName: string) => 
     })
     .then((res) => {
       saveAs(res.data, fileName);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      throw new Error(err);
     });
 
   return result;

@@ -83,7 +83,7 @@ export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormPr
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Note</FormLabel>
+                <FormLabel>Note (optional)</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Start writing" {...field} />
                 </FormControl>
