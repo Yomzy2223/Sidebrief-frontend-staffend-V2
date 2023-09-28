@@ -38,9 +38,9 @@ const SignUp = () => {
       <Form {...form}>
         <div>
           <h1 className="mb-4 text-3xl font-medium">Create account</h1>
-          <p className="text-muted-foreground">Join our 500+ customers to scale your business</p>
+          <p className="text-muted-foreground hidden xs:block">Join our 500+ customers to scale your business</p>
         </div>
-        <div className="flex  gap-6">
+        {/* <div className="flex  gap-6">
           {signUpOptions.map((el, i) => (
             <Button
               key={i}
@@ -52,9 +52,10 @@ const SignUp = () => {
             </Button>
           ))}
         </div>
+         */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16  ">
           <div className="flex flex-col gap-6 space-y-8 py-2 bg-white rounded-lg ">
-            <div className="flex  gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row">
               <InputWithLabel
                 form={form}
                 name="firstName"
@@ -92,7 +93,7 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 text-center">
             <Button type="submit" size="full" loading={isLoading}>
               Create account
             </Button>
