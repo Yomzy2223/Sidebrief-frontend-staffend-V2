@@ -18,7 +18,7 @@ const BankHeader = () => {
   const matches = useMediaQuery("(min-width: 768px)");
 
   return (
-    <div className="flex w-full items-center py-7 md:py-11 pl-5 md:pl-10 pr-5 md:pr-6 border-b border-[#EDF1F6] justify-between relative">
+    <div className="flex w-full items-center py-6 md:py-11 pl-5 md:pl-10 pr-5 md:pr-6 border-b-0 md:border-b border-[#EDF1F6] justify-between relative">
       <p className="text-xl md:text-2xl not-italic font-semibold leading-[130%] text-gray-900">
         Diligence Searches
       </p>

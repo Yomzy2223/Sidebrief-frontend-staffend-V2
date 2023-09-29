@@ -1,21 +1,15 @@
 "use client";
 
-import { useRef } from "react";
 import MenuIcon from "@/assets/icons/menuIcon";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { sidebarItems } from "./index";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import LogoutIcon from "@/assets/icons/logoutIcon";
-import { useOnClickOutside } from "@/hooks";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -32,7 +26,7 @@ export const SidebarMobile = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} size={"slim"}>
           <MenuIcon
             className={{
