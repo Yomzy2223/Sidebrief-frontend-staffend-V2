@@ -16,6 +16,15 @@ import ReactPaginate from "react-paginate";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Loader } from "./loader";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMediaQuery } from "@/hooks";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Plus, Minus } from "lucide-react";
+
 interface TableProps {
   header: string[];
   body: (string | number | { imageLink: string; bankName: string } | ReactNode)[][];
@@ -58,6 +67,9 @@ const CMTable = ({
     if (onCellClick) onCellClick(cellData, rowIndex, columnIndex);
   };
 
+  const matches = useMediaQuery("(min-width: 768px)");
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -88,64 +100,150 @@ const CMTable = ({
         <Loader />
       ) : body?.length ? (
         <div>
-          <Table className="min-w-full bg-white border-spacing-0">
-            <TableHeader className="w-full text-base text-gray-900 bg-muted border-none">
-              <TableRow className="w-full ">
-                {header?.map((text, index) => (
-                  <TableHead
-                    className="px-6 py-5 text-sm font-medium leading-5 text-left text-gray-900 border-b-0 max-w-max "
-                    key={index}
-                  >
-                    {text}
-                  </TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody className="w-full">
-              {currentItems?.map((row, rowIndex) => (
-                <TableRow
-                  className="w-full"
-                  key={rowIndex}
-                  onClick={() => handleRowClick(row, rowIndex)}
-                >
-                  {row?.map((cell: any, columnIndex) => (
-                    <TableCell
-                      className={cn(
-                        "text-sm text-gray-900 border-b-0 leading-5 text-left px-6 py-5 m-0 font-normal overflow-hidden max-w-max ",
-                        {
-                          "text-[#0082AA]":
-                            row[row.length - 1] === "Under review" &&
-                            columnIndex === row.length - 1,
-                          "text-[#DE4A09]":
-                            row[row.length - 1] === "Completed" && columnIndex === row.length - 1,
-                          "text-[#00D448]":
-                            row[row.length - 1] === "Paid" && columnIndex === row.length - 1,
-                          "underline text-[#00A2D4]": columnIndex === row.length - 1 && link,
-                        },
-                        {
-                          "cursor-pointer":
-                            rowCursor || (lastColumnCursor && columnIndex === row.length - 1),
-                        }
-                      )}
-                      key={columnIndex}
-                      onClick={() => handleCellClick(cell, rowIndex, columnIndex)}
+          {matches ? (
+            <Table className="min-w-full bg-white border-spacing-0">
+              <TableHeader className="w-full text-base text-gray-900 border-none bg-muted">
+                <TableRow className="w-full ">
+                  {header?.map((text, index) => (
+                    <TableHead
+                      className="px-6 py-5 text-sm font-medium leading-5 text-left text-gray-900 border-b-0 max-w-max "
+                      key={index}
                     >
-                      {typeof cell === "object" && "imageLink" in cell ? (
-                        <>
-                          <div className="flex items-center gap-4">
-                            <Image src={cell?.imageLink} alt={"bankLogo"} width={25} height={25} />
-                            <span>{cell?.bankName}</span>
-                          </div>
-                        </>
-                      ) : (
-                        cell
-                      )}
-                    </TableCell>
+                      {text}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody className="w-full">
+                {currentItems?.map((row, rowIndex) => (
+                  <TableRow
+                    className="w-full"
+                    key={rowIndex}
+                    onClick={() => handleRowClick(row, rowIndex)}
+                  >
+                    {row?.map((cell: any, columnIndex) => (
+                      <TableCell
+                        className={cn(
+                          "text-sm text-gray-900 border-b-0 leading-5 text-left px-6 py-5 m-0 font-normal overflow-hidden max-w-max ",
+                          {
+                            "text-[#0082AA]":
+                              row[row.length - 1] === "Under review" &&
+                              columnIndex === row.length - 1,
+                            "text-[#DE4A09]":
+                              row[row.length - 1] === "Completed" && columnIndex === row.length - 1,
+                            "text-[#00D448]":
+                              row[row.length - 1] === "Paid" && columnIndex === row.length - 1,
+                            "underline text-[#00A2D4]": columnIndex === row.length - 1 && link,
+                          },
+                          {
+                            "cursor-pointer":
+                              rowCursor || (lastColumnCursor && columnIndex === row.length - 1),
+                          }
+                        )}
+                        key={columnIndex}
+                        onClick={() => handleCellClick(cell, rowIndex, columnIndex)}
+                      >
+                        {typeof cell === "object" && "imageLink" in cell ? (
+                          <>
+                            <div className="flex items-center gap-4">
+                              <Image
+                                src={cell?.imageLink}
+                                alt={"bankLogo"}
+                                width={25}
+                                height={25}
+                              />
+                              <span>{cell?.bankName}</span>
+                            </div>
+                          </>
+                        ) : (
+                          cell
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <div className="m-5 p-4 rounded-sm border border-[#EDF1F6] space-y-[22px]">
+              {currentItems.map((row, rowIndex) => {
+                return (
+                  <Accordion
+                    key={rowIndex}
+                    type="multiple"
+                    value={openItems}
+                    onValueChange={(value) => setOpenItems(value)}
+                    className="p-4 text-sm border rounded-sm"
+                  >
+                    <AccordionItem value={`${row[0]}`} className="space-y-4 border-b-0">
+                      <div className="flex items-start justify-between">
+                        <div
+                          className="flex flex-col gap-4"
+                          onClick={() => handleRowClick(row, rowIndex)}
+                        >
+                          {row.slice(0, 3).map((cell, index) => {
+                            if (
+                              typeof cell === "object" &&
+                              "imageLink" in cell! &&
+                              "bankName" in cell
+                            ) {
+                              return (
+                                <div key={index}>
+                                  <Image src={cell.imageLink} alt={cell.bankName} />
+                                  <span>{cell.bankName}</span>
+                                </div>
+                              );
+                            }
+                            return (
+                              <div key={index}>
+                                {index !== 0 ? (
+                                  <div className="flex items-center gap-1">
+                                    <span className="text-foreground-grey">{header[index]}:</span>{" "}
+                                    <span className="font-medium text-foreground">{cell}</span>
+                                  </div>
+                                ) : (
+                                  <span className="font-medium text-foreground">{cell})</span>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <AccordionTrigger>
+                          {openItems.includes(`${row[0]}`) ? <Minus /> : <Plus />}
+                        </AccordionTrigger>
+                      </div>
+                      <AccordionContent onClick={() => handleRowClick(row, rowIndex)}>
+                        <div className="flex flex-col gap-4">
+                          {row.slice(3).map((cell, index) => {
+                            if (
+                              typeof cell === "object" &&
+                              "imageLink" in cell! &&
+                              "bankName" in cell
+                            ) {
+                              return (
+                                <div key={index}>
+                                  <Image src={cell.imageLink} alt={cell.bankName} />
+                                  <span>{cell.bankName}</span>
+                                </div>
+                              );
+                            }
+                            return (
+                              <div key={index}>
+                                <div className="flex items-center gap-1">
+                                  <span className="text-foreground-grey">{header[index + 3]}:</span>{" "}
+                                  <span className="font-medium text-foreground">{cell}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                );
+              })}
+            </div>
+          )}
 
           <ReactPaginate
             breakLabel="..."

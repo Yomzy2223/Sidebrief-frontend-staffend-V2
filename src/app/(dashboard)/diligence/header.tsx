@@ -32,7 +32,7 @@ const BankHeader = () => {
           </>
         )}
         <AddOrEditBank
-          triggerText={matches ? "Add New Enterprise" : <Plus />}
+          triggerText={matches ? "Add New Enterprise" : <Plus className="stroke-primary" />}
           variant="add"
           banks={banks || []}
         />

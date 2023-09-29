@@ -49,18 +49,10 @@ export const NotificationCard = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {/* <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger> */}
         <Image src={Notification} alt={"profile icon"} className="w-8 h-8 " />
-        {/* </NavigationMenuTrigger>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu> */}
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="m-4 w-[calc(100vw-32px)] sm:w-380" align="end" forceMount>
+      <DropdownMenuContent className="m-4 w-[calc(100vw-32px)] sm:w-[380px]" align="end" forceMount>
         <>
           <div className="flex items-center justify-between m-4 space-y-2">
             <div>
