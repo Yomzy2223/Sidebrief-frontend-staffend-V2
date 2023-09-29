@@ -3,10 +3,11 @@
 import { Dialog } from "@/components/customdialog";
 import { AddOrEditBankForm } from "./Form";
 import type { IBank } from "@/types/returns";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
+import { useMediaQuery } from "@/hooks";
 
 type addEditBankProps = {
-  triggerText: string;
+  triggerText: string | ReactNode;
   variant: "add" | "edit";
 } & (
   | {
@@ -24,6 +25,8 @@ type addEditBankProps = {
 export const AddOrEditBank = (props: addEditBankProps) => {
   const [open, setOpen] = useState(false);
 
+  const matches = useMediaQuery("(min-width: 768px)");
+
   return (
     <Dialog
       dialogType="normal"
@@ -35,7 +38,8 @@ export const AddOrEditBank = (props: addEditBankProps) => {
       triggerVariant={
         props.variant === "add"
           ? {
-              size: "lg",
+              variant: !matches ? "ghost" : "default",
+              size: matches ? "lg" : "slim",
             }
           : {
               variant: "outline-primary",

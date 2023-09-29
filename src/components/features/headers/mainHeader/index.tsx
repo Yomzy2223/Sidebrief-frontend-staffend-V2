@@ -16,11 +16,11 @@ const MainHeader = () => {
 
   return (
     <div className="sticky top-0 bg-white border-b">
-      <div className="flex items-center px-6 py-4 md:py-2">
+      <div className="flex items-center px-5 py-4 md:px-6 md:py-2">
         <div className="flex flex-col justify-center p-23">
           <Image src={Logo} alt={"sidebrief logo"} className="w-auto h-6" />
         </div>
-        <div className="flex items-center ml-auto space-x-2 md:space-x-4">
+        <div className="flex items-center ml-auto space-x-4">
           {matches ? (
             <>
               <Link
