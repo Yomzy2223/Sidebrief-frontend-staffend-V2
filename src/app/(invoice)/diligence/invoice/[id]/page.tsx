@@ -1,7 +1,7 @@
 "use client";
 
 import { InvoiceHeader } from "@/components/features/headers/invoiceHeader";
-import { Back } from "../../../../(bank)/diligence/banks/[id]/back";
+import { Back } from "../../../../(enterprise)/diligence/enterprise/[id]/back";
 import { Button } from "@/components/ui/button";
 import CMTable from "@/components/features/cmTable";
 import { dataBody, headers } from "./constants";
@@ -16,7 +16,7 @@ export default function InvoicePage({ params }: { params: { id: string } }) {
   const { useViewEnterpriseByIdQuery } = useEnterprise();
   const enterpriseById = useViewEnterpriseByIdQuery(params.id);
   const selectedEnterprise = enterpriseById.data?.data.data;
-  const enterpriseByIdLoading = enterpriseById?.isLoading
+  const enterpriseByIdLoading = enterpriseById?.isLoading;
 
   const completedRequests = selectedEnterprise?.diligenceRequest.filter(
     (el) => el.status === "Completed"
@@ -44,7 +44,7 @@ export default function InvoicePage({ params }: { params: { id: string } }) {
         />
         <div className="w-11/12 mx-auto -translate-y-20">
           {enterpriseById?.isLoading ? (
-            <Loader/>
+            <Loader />
           ) : (
             <CMTable
               header={headers}
@@ -62,7 +62,6 @@ export default function InvoicePage({ params }: { params: { id: string } }) {
               }
             />
           )}
-         
         </div>
       </div>
       <div className="bg-secondary py-2.5">

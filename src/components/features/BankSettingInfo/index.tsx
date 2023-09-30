@@ -1,6 +1,9 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
 import { AddOrEditBank } from "../AddOrEditBank";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useMediaQuery } from "@/hooks";
 
 interface BankInfoProps {
   image: string | StaticImageData;
@@ -21,44 +24,68 @@ export const BankSettingInfo = ({
   id,
   loading,
 }: BankInfoProps) => {
+  const matches = useMediaQuery("(min-width: 768px)");
+
   return (
-    <div className="space-y-4">
-      <h6 className="text-xl font-semibold leading-6 text-foreground">Bank Information</h6>
-      <div className="flex gap-6 p-6 border divide-x rounded-sm">
-        <div className="grow">
-          <div className="relative w-[148px] h-[148px] rounded-sm overflow-hidden">
-            {loading ? (
-              <Skeleton className="w-full h-full" />
-            ) : (
-              <Image src={image} alt={`${name}-image`} fill />
-            )}
+    <>
+      {matches ? (
+        <div className="space-y-4">
+          <h6 className="text-xl font-semibold leading-6 text-foreground">Bank Information</h6>
+          <div className="flex gap-6 p-6 border divide-x rounded-sm">
+            <div className="grow">
+              <div className="relative w-[148px] h-[148px] rounded-sm overflow-hidden">
+                {loading ? (
+                  <Skeleton className="w-full h-full" />
+                ) : (
+                  <Image src={image} alt={`${name}-image`} fill />
+                )}
+              </div>
+            </div>
+            <div className="flex grow-[5] divide-x">
+              <div className="flex flex-col px-6 divide-y grow">
+                <Detail detailName="Bank name" detail={name} loading={loading} />
+                <Detail detailName="Bank headquarters address" detail={address} loading={loading} />
+              </div>
+              <div className="flex flex-col px-6 divide-y grow">
+                <Detail detailName="Account admin email" detail={adminEmail} loading={loading} />
+              </div>
+            </div>
+            <div className="flex justify-end grow">
+              <div className="flex flex-col items-start">
+                <AddOrEditBank
+                  variant="edit"
+                  adminEmail={adminEmail}
+                  bankname={name}
+                  address={address}
+                  triggerText="Edit"
+                  bankId={id}
+                  logo={typeof image === "string" ? image : image.src}
+                  color={brandColor || ""}
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex grow-[5] divide-x">
-          <div className="flex flex-col px-6 divide-y grow">
+      ) : (
+        <div className="border border-[#EDF1F6] rounded-lg p-4 flex items-start justify-between">
+          <div className="flex flex-col gap-6">
             <Detail detailName="Bank name" detail={name} loading={loading} />
             <Detail detailName="Bank headquarters address" detail={address} loading={loading} />
-          </div>
-          <div className="flex flex-col px-6 divide-y grow">
             <Detail detailName="Account admin email" detail={adminEmail} loading={loading} />
           </div>
+          <AddOrEditBank
+            variant="edit"
+            adminEmail={adminEmail}
+            bankname={name}
+            address={address}
+            triggerText={<p className="underline">Edit</p>}
+            bankId={id}
+            logo={typeof image === "string" ? image : image.src}
+            color={brandColor || ""}
+          />
         </div>
-        <div className="flex justify-end grow">
-          <div className="flex flex-col items-start">
-            <AddOrEditBank
-              variant="edit"
-              adminEmail={adminEmail}
-              bankname={name}
-              address={address}
-              triggerText="Edit"
-              bankId={id}
-              logo={typeof image === "string" ? image : image.src}
-              color={brandColor || ""}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
@@ -77,7 +104,7 @@ const Detail = ({
         {detailName}
       </p>
       {loading ? (
-        <Skeleton className="h-[16px] w-[250px]" />
+        <Skeleton className="h-[16px] w-[180px] md:w-[250px]" />
       ) : (
         <p className="text-base leading-relaxed text-muted-foreground">{detail}</p>
       )}

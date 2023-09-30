@@ -165,7 +165,7 @@ const CMTable = ({
               </TableBody>
             </Table>
           ) : (
-            <div className="m-5 p-4 rounded-sm border border-[#EDF1F6] space-y-[22px]">
+            <div className="p-4 rounded-sm border border-[#EDF1F6] space-y-[22px]">
               {currentItems.map((row, rowIndex) => {
                 return (
                   <Accordion

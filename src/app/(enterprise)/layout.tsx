@@ -1,13 +1,18 @@
+"use client";
+
 // import "../globals.css";
 import type { Metadata } from "next";
 import { BrFirma } from "@/font";
 import Sidebar from "@/components/features/sidebar";
 import MainHeader from "@/components/features/headers/mainHeader";
+import { useMediaQuery } from "@/hooks";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const matches = useMediaQuery("(min-width: 768px)");
+
   return (
     <div className="flex flex-col h-screen ">
-      <MainHeader />
+      {matches && <MainHeader />}
       <div className="flex flex-1 ">
         <div>
           <Sidebar />
