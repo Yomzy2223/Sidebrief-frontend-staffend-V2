@@ -10,12 +10,17 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks";
 import { SidebarMobile } from "@/components/features/sidebar/mobile";
+import { useEnterprise } from "@/hooks/useEnterprise";
+import { AddOrEditBank } from "@/components/features/AddOrEditBank";
 
 const MainHeader = () => {
   const matches = useMediaQuery("(min-width: 768px)");
+  const { useGetNigerianBanksQuery } = useEnterprise();
+  const nigerianBanks = useGetNigerianBanksQuery();
+  const banks = nigerianBanks.data?.data.data;
 
   return (
-    <div className="sticky top-0 bg-white border-b-0 md:border-b">
+    <div className="sticky top-0 z-50 bg-white border-b-0 md:border-b">
       <div className="flex items-center px-5 pt-4 md:px-6 md:py-2">
         <div className="flex flex-col justify-center p-23">
           <Image src={Logo} alt={"sidebrief logo"} className="w-auto h-6" />
@@ -37,7 +42,14 @@ const MainHeader = () => {
             </>
           ) : (
             <>
-              <NotificationCard />
+              {/* <NotificationCard /> */}
+              <AddOrEditBank
+                triggerText={
+                  <p className="text-sm font-semibold text-primary">Add new enterprise</p>
+                }
+                variant="add"
+                banks={banks || []}
+              />
               <SidebarMobile />
             </>
           )}

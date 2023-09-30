@@ -8,6 +8,7 @@ import { Plus, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDiligence } from "@/context/diligence";
 import { Input } from "@/components/ui/input";
+import { NotificationCard } from "@/components/features/notifications";
 
 const BankHeader = () => {
   const { useGetNigerianBanksQuery } = useEnterprise();
@@ -18,24 +19,26 @@ const BankHeader = () => {
   const matches = useMediaQuery("(min-width: 768px)");
 
   return (
-    <div className="flex w-full items-center py-6 md:py-11 pl-5 md:pl-10 pr-5 md:pr-6 border-b-0 md:border-b border-[#EDF1F6] justify-between relative">
+    <div className="flex w-full gap-y-5 items-center py-6 md:py-11 pl-5 md:pl-10 pr-5 md:pr-6 border-b-0 md:border-b border-[#EDF1F6] justify-between relative z-[1]">
       <p className="text-xl md:text-2xl not-italic font-semibold leading-[130%] text-gray-900">
         Diligence Searches
       </p>
-      <div className="flex items-center gap-5">
-        {!matches && (
+      <div className="flex items-center justify-between gap-5">
+        {!matches ? (
           <>
             <Button variant={"ghost"} size={"slim"} onClick={() => setShowSearch(true)}>
               <Search />
             </Button>
             {showSearch && <SearcherMobile unset={() => setShowSearch(false)} />}
+            {/* <NotificationCard /> */}
           </>
+        ) : (
+          <AddOrEditBank
+            triggerText={matches ? "Add New Enterprise" : <Plus className="stroke-primary" />}
+            variant="add"
+            banks={banks || []}
+          />
         )}
-        <AddOrEditBank
-          triggerText={matches ? "Add New Enterprise" : <Plus className="stroke-primary" />}
-          variant="add"
-          banks={banks || []}
-        />
       </div>
     </div>
   );

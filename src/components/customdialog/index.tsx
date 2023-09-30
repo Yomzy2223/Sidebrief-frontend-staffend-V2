@@ -51,7 +51,7 @@ export const Dialog = (props: IdialogProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent
-            className="sm:max-w-[554px] p-6 max-h-[80vh] overflow-auto"
+            className="max-w-[554px] p-6 max-h-[80vh] overflow-auto"
             showClose={props.showCloseButton}
           >
             {(props.description || props.title) && (
