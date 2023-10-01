@@ -9,6 +9,7 @@ interface navType {
   text: string;
   path: string;
   number?: number;
+  statusColor?: "green" | "purple" | "yellow";
 }
 
 const ActiveNav2 = ({ nav, defaultURL }: { nav: navType[]; defaultURL?: string }) => {
@@ -28,8 +29,17 @@ const ActiveNav2 = ({ nav, defaultURL }: { nav: navType[]; defaultURL?: string }
               )}
             >
               {el.text}
-              {el.number && (
-                <span className="px-3 py-1 text-xs leading-4 rounded-lg bg-secondary/10 text-secondary">
+              {el.number !== undefined && (
+                <span
+                  className={cn(
+                    "px-3 py-1 text-xs leading-4 rounded-lg bg-secondary/10 text-secondary",
+                    {
+                      "bg-[#00D448]/10 text-[#00D448]": el.statusColor === "green",
+                      "bg-[#E5A100]/10 text-[#E5A100]": el.statusColor === "yellow",
+                      "bg-[#D400CC]/10 text-[#D400CC]": el.statusColor === "purple",
+                    }
+                  )}
+                >
                   {el.number}
                 </span>
               )}
