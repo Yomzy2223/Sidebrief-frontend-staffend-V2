@@ -124,7 +124,7 @@ export const CompletedDialog = ({ requestId }: { requestId: string }) => {
                       description={documents[0].description}
                     />
                   )}
-                  <Button>Done</Button>
+                  <Button onClick={doneAction}>Done</Button>
                 </div>
               </>
             </Draggable>
