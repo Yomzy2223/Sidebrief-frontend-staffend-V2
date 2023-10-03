@@ -35,10 +35,10 @@ const ForgotPassword = () => {
             verify your email address.
           </p>
           <Button size="full" onClick={goToEmail}>
-            Got to email
+            Go to email
           </Button>
-          <p className="mt-9 text-foreground-grey ">
-            Did not receive link?{" "}
+          <p className="mt-9 text-foreground-grey text-center">
+            Did not receive link? {"      "}
             <Button
               variant="ghost2"
               size="icon"

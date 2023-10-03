@@ -53,11 +53,11 @@ const Login = () => {
       <Form {...form}>
         <div>
           <h1 className="mb-4 text-3xl font-medium">Welcome back! Sign in</h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground hidden xs:block">
             Your business was well-taken care of when you left
           </p>
         </div>
-        <div className="flex gap-6">
+        {/* <div className="flex gap-6">
           {signInOptions.map((el, i) => (
             <Button
               key={i}
@@ -68,7 +68,7 @@ const Login = () => {
               <p>{el.text}</p>
             </Button>
           ))}
-        </div>
+        </div> */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-16 ">
           <div className="flex flex-col gap-6 py-2 space-y-8 bg-white rounded-lg ">
             <InputWithLabel
@@ -89,7 +89,7 @@ const Login = () => {
                 <Button
                   variant="ghost2"
                   type="button"
-                  className="flex self-end text-sm"
+                  className="flex self-end text-sm px-0 py-0"
                   onClick={handleForgot}
                 >
                   Forgot password?
@@ -98,12 +98,12 @@ const Login = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 text-center">
             <Button type="submit" size="full" loading={isLoading}>
               Sign in
             </Button>
             <p>
-              Don&apos;t have have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/auth/signup" className="text-secondary">
                 Sign up
               </Link>
