@@ -146,7 +146,7 @@ export const AddOrEditBankForm = ({
 
   return (
     <Form {...form}>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center mb-5 space-x-2">
         <Switch id="togglebank" checked={isBank} onClick={() => setIsBank((prev) => !prev)} />
         <Label htmlFor="togglebank">{isAdd ? "Add" : "Edit"} Nigerian Bank</Label>
       </div>

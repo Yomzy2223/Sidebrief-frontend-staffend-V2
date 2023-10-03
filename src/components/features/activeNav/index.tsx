@@ -19,9 +19,9 @@ export const ActiveNav = ({ title, path = "", length, status }: TabProps) => {
       href={path}
       passHref
       className={cn("flex pl-4 h-16 items-center justify-center gap-4", {
-        "border-b-4  border-[#00A2D4]": isActive && !status,
+        "border-b-2 md:border-b-4  border-[#00A2D4]": isActive && !status,
         "bg-white": isActive && status,
-        "bg-gray-300":
+        "md:bg-gray-300":
           isActive &&
           (title === "Verified" ||
             title === "Unverified" ||

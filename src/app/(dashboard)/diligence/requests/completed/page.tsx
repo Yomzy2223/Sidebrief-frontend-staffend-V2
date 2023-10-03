@@ -15,7 +15,7 @@ const Completed = () => {
   const allRequest = useViewAllRequestQuery();
   const allRequestData = allRequest?.data?.data?.data;
 
-  const requestsLoading = allRequest?.isLoading
+  const requestsLoading = allRequest?.isLoading;
 
   const { searchValue } = useDiligence();
 
@@ -54,11 +54,11 @@ const Completed = () => {
 
   return (
     <>
-    {allRequest.isLoading ? (
-      <Loader/>
-    ) : (
-      <CMTable header={headers} body={bodyData} lastColumnCursor />
-    )}
+      {allRequest.isLoading ? (
+        <Loader />
+      ) : (
+        <CMTable header={headers} body={bodyData} lastColumnCursor />
+      )}
     </>
   );
 };

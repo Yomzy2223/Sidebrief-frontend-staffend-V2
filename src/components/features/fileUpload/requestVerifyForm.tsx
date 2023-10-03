@@ -91,11 +91,20 @@ export const RequestVerifyForm = ({ requestId, closeModal }: requestVerifyFormPr
               </FormItem>
             )}
           />
-          <div className="flex self-end gap-4">
-            <Button type="button" variant={"ghost"} onClick={closeModal}>
+          <div className="flex self-end w-full gap-4 md:w-fit">
+            <Button
+              type="button"
+              variant={"ghost"}
+              onClick={closeModal}
+              className="hidden md:block"
+            >
               Close
             </Button>
-            <Button type="submit" loading={submitRequestDocument.isLoading}>
+            <Button
+              type="submit"
+              loading={submitRequestDocument.isLoading}
+              className="!w-full md:w-fit"
+            >
               Upload
             </Button>
           </div>
