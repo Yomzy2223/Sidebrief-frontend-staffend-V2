@@ -58,12 +58,21 @@ export function getTimeInfo(timestampStr: string): string {
 }
 
 export const handleDownloadFile = (cloudinaryLink: string, fileName: string) => {
+  // Convert http to https if necessary
+  const secureLink = cloudinaryLink.startsWith("http://")
+    ? "https://" + cloudinaryLink.slice(7)
+    : cloudinaryLink;
+
   const result = axios
-    .get(cloudinaryLink, {
+    .get(secureLink, {
       responseType: "blob",
     })
     .then((res) => {
       saveAs(res.data, fileName);
+    })
+    .catch((err) => {
+      console.log(err.message);
+      throw new Error(err);
     });
 
   return result;

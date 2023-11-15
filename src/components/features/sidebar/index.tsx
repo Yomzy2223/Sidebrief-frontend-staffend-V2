@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeIcon from "@/assets/icons/homeIcon";
 import DetailsIcon from "@/assets/icons/detailsIcon";
 import SettingsIcon from "@/assets/icons/settingsIcon";
@@ -11,9 +11,11 @@ import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import MenuIcon from "@/assets/icons/menuIcon";
+import { useScreenWidth } from "@/hooks";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const screenWidth = useScreenWidth();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -25,11 +27,17 @@ const Sidebar = () => {
     router.push("/auth/login");
   };
 
+  useEffect(() => {
+    if (screenWidth !== null && screenWidth <= 992) {
+      setOpen(false);
+    }
+  }, [screenWidth]);
+
   return (
     <motion.div
       className={cn(
-        "flex flex-col flex-1 gap-12 border-r border-border w-[237px] h-full py-4 px-6 ",
-        !open && "w-max"
+        "md:flex flex-col flex-1 gap-12 border-r border-border w-[237px] h-full py-4 px-6 hidden",
+        { "w-max": !open }
       )}
       animate={open ? "open" : "closed"}
       variants={variants}
@@ -90,7 +98,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 //
-const sidebarItems = [
+export const sidebarItems = [
   { href: "/", text: "Home", icon: HomeIcon },
   { href: "/diligence/enterprises", text: "Diligence", icon: DetailsIcon },
   { href: "/settings", text: "Settings", icon: SettingsIcon },

@@ -49,22 +49,10 @@ export const NotificationCard = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <Image
-                  src={Notification}
-                  alt={"profile icon"}
-                  className="w-8 h-8 "
-                />
-              </NavigationMenuTrigger>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <Image src={Notification} alt={"profile icon"} className="w-8 h-8 " />
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="m-4 w-380" align="end" forceMount>
+      <DropdownMenuContent className="m-4 w-[calc(100vw-32px)] sm:w-[380px]" align="end" forceMount>
         <>
           <div className="flex items-center justify-between m-4 space-y-2">
             <div>
@@ -87,12 +75,8 @@ export const NotificationCard = () => {
                 <Checkbox />
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {notification.title}
-                    </p>
-                    <p className="py-2 text-xs text-muted-foregroun">
-                      {notification.message}
-                    </p>
+                    <p className="text-sm font-medium leading-none">{notification.title}</p>
+                    <p className="py-2 text-xs text-muted-foregroun">{notification.message}</p>
                   </div>
                   <div className="text-sm timeline whitespace-nowrap mb-7">
                     <p>{notification?.timeline}</p>

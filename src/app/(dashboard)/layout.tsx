@@ -1,6 +1,3 @@
-// import "../globals.css";
-import type { Metadata } from "next";
-import { BrFirma } from "@/font";
 import Sidebar from "@/components/features/sidebar";
 import MainHeader from "@/components/features/headers/mainHeader";
 

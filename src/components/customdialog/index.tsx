@@ -26,7 +26,7 @@ export type IdialogProps = {
   | { dialogType: "state"; open: boolean; cancel: () => void; setter?: (a: boolean) => void }
   | {
       dialogType: "normal";
-      triggerText: string;
+      triggerText: string | ReactNode;
       triggerVariant?: VariantProps<typeof buttonVariants>;
       triggerClassName?: HTMLAttributes<HTMLButtonElement>["className"];
       setter?: (a: boolean) => void;
@@ -51,7 +51,7 @@ export const Dialog = (props: IdialogProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent
-            className="sm:max-w-[554px] p-6 max-h-[80vh] overflow-auto"
+            className="max-w-[554px] p-6 max-h-[80vh] overflow-auto"
             showClose={props.showCloseButton}
           >
             {(props.description || props.title) && (
