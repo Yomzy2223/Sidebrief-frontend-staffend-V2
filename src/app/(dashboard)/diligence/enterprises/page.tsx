@@ -22,13 +22,13 @@ const Banks = () => {
   const allRequest = useViewAllRequestQuery();
 
   const enterprises = allEnterprise.data?.data.data;
-  const enterpriseLoading = allEnterprise.isLoading
+  const enterpriseLoading = allEnterprise.isLoading;
 
   const onRowClick = (cellData: any) => {
     const name = cellData[1];
     if (enterprises) {
       const selected = enterprises.find((enterprise) => enterprise.name === name)!;
-      router.push(`/diligence/banks/${selected.id}`);
+      router.push(`/diligence/enterprise/${selected.id}`);
     }
   };
 
@@ -43,24 +43,18 @@ const Banks = () => {
   );
 
   return (
-    <div>
+    <div className="m-5 md:m-0">
       {allEnterprise.isLoading || allRequest.isLoading ? (
-        <Loader/>
+        <Loader />
       ) : allEnterprise.isSuccess && allRequest.isSuccess ? (
         <CMTable
           isLoading={allEnterprise.isLoading || allRequest.isLoading}
           header={headers}
-          // ['S/N', 'Onboarded Banks', 'Requests','Branches', 'Date', 'Registration URl',]
-          // isLoading={enterpriseLoading}
           body={
             filteredEnterprise
               ?.sort((a, b) => compareDesc(parseJSON(a.createdAt), parseJSON(b.createdAt)))
               .map((enterprise, index) => [
                 numeral(index + 1).format("00"),
-                // {
-                // 	imageLink: enterprise.logo,
-                // 	bankName: enterprise.name,
-                // },
                 enterprise.name,
                 enterprise.diligenceRequest.length,
                 enterprise.diligenceManager.length,
@@ -73,7 +67,7 @@ const Banks = () => {
       ) : (
         <div className="flex justify-center mt-12">
           <EmptyList />
-      </div>
+        </div>
       )}
     </div>
   );
